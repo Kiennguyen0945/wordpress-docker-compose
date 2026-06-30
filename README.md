@@ -1,159 +1,298 @@
-# WPDC - WordPress Docker Compose
+# 🛒 WordPress E-Commerce — Docker + GitHub Collaboration
 
-Easy WordPress development with Docker and Docker Compose.
+> **Dành cho team:** Linux (bạn) + Windows (bạn của bạn) làm việc nhóm qua GitHub
 
-With this project you can quickly run the following:
+---
 
-- [WordPress and WP CLI](https://hub.docker.com/_/wordpress/)
-- [phpMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
-- [MySQL](https://hub.docker.com/_/mysql/)
+## 📦 Công nghệ sử dụng
 
-Contents:
+| Service | Image | Mục đích |
+|---------|-------|----------|
+| **WordPress** | `wordpress:latest` | CMS + E-Commerce |
+| **MySQL** | `mysql:latest` | Database |
+| **phpMyAdmin** | `phpmyadmin:latest` | Quản lý DB qua web |
+| **WP-CLI** | `wordpress:cli` | Quản lý WordPress bằng command |
 
-- [Requirements](#requirements)
-- [Configuration](#configuration)
-- [Installation](#installation)
-- [Usage](#usage)
+---
 
-## Requirements
+## 🚀 Cài đặt ban đầu
 
-Make sure you have the latest versions of **Docker** and **Docker Compose** installed on your machine.
+### 1. Yêu cầu
 
-Clone this repository or copy the files from this repository into a new folder. In the **docker-compose.yml** file you may change the IP address (in case you run multiple containers) or the database from MySQL to MariaDB.
+| Bạn (Linux) | Bạn của bạn (Windows) |
+|-------------|----------------------|
+| Docker Engine + Docker Compose | [Docker Desktop for Windows](https://docs.docker.com/desktop/setup/install/windows-install/) |
+| Git | [Git for Windows](https://git-scm.com/download/win) (có **Git Bash**) |
+| Thêm user vào group docker: `sudo usermod -aG docker $USER` | Cài WSL2 (Docker Desktop tự động xài) |
 
-Make sure to [add your user to the `docker` group](https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user) when using Linux.
+> 💡 **Git Bash** trên Windows cho phép chạy script `.sh` (như `export.sh`) y hệt Linux.
 
-## Configuration
+### 2. Clone repo về máy
 
-Copy the example environment into `.env`
-
+```bash
+# Cả Linux và Windows (Git Bash) đều dùng lệnh giống nhau
+git clone https://github.com/<your-org>/<repo-name>.git
+cd <repo-name>
 ```
+
+### 3. Tạo file `.env`
+
+```bash
+# Trên Linux / macOS / Git Bash:
 cp env.example .env
+
+# Trên Windows CMD:
+copy env.example .env
 ```
 
-Edit the `.env` file to change the default IP address, MySQL root password and WordPress database name.
-
-## Installation
-
-Open a terminal and `cd` to the folder in which `docker-compose.yml` is saved and run:
-
-```
-docker-compose up
+Chỉnh sửa file `.env` nếu cần:
+```env
+IP=127.0.0.1
+PORT=80
+DB_ROOT_PASSWORD=password
+DB_NAME=wordpress
 ```
 
-This creates two new folders next to your `docker-compose.yml` file.
+### 4. Khởi động Docker
 
-* `wp-data` – used to store and restore database dumps
-* `wp-app` – the location of your WordPress application
+```bash
+# Lần đầu chạy (có thể mất vài phút để tải images):
+docker compose up -d
 
-The containers are now built and running. You should be able to access the WordPress installation with the configured IP in the browser address. By default it is `http://127.0.0.1`.
-
-For convenience you may add a new entry into your hosts file.
-
-## Usage
-
-### Starting containers
-
-You can start the containers with the `up` command in daemon mode (by adding `-d` as an argument) or by using the `start` command:
-
-```
-docker-compose start
+# Kiểm tra trạng thái:
+docker compose ps
 ```
 
-### Stopping containers
+### 5. Truy cập
+
+| Ứng dụng | URL |
+|-----------|-----|
+| 🌐 **WordPress** | http://127.0.0.1:80 (hoặc PORT bạn đặt) |
+| 🗄️ **phpMyAdmin** | http://127.0.0.1:8080 (user: `root`, pass: trong `.env`) |
+
+---
+
+## 🤝 Quy trình làm việc nhóm (GitHub Flow)
+
+### Cấu trúc Git
 
 ```
-docker-compose stop
+main              ← nhánh chính, luôn ổn định
+  └─ develop      ← nhánh phát triển chính
+       ├─ feature/theme-*       ← làm theme
+       ├─ feature/plugin-*      ← làm plugin/tính năng
+       ├─ feature/db-*          ← thay đổi database
+       └─ hotfix/*              ← sửa lỗi gấp
 ```
 
-### Removing containers
+### Luồng làm việc hằng ngày
 
-To stop and remove all the containers use the`down` command:
+```bash
+# 1. Luôn bắt đầu bằng việc cập nhật code mới nhất
+git checkout develop
+git pull origin develop
 
-```
-docker-compose down
-```
+# 2. Tạo nhánh riêng cho việc mình làm
+git checkout -b feature/ten-tinh-nang
 
-Use `-v` if you need to remove the database volume which is used to persist the database:
+# 3. Sau khi code xong, commit & push
+git add .
+git commit -m "Mô tả ngắn gọn việc đã làm"
+git push origin feature/ten-tinh-nang
 
-```
-docker-compose down -v
-```
-
-### Project from existing source
-
-Copy the `docker-compose.yml` file into a new directory. In the directory you create two folders:
-
-* `wp-data` – here you add the database dump
-* `wp-app` – here you copy your existing WordPress code
-
-You can now use the `up` command:
-
-```
-docker-compose up
+# 4. Lên GitHub tạo Pull Request (PR) vào nhánh develop
 ```
 
-This will create the containers and populate the database with the given dump. You may set your host entry and change it in the database, or you simply overwrite it in `wp-config.php` by adding:
+> ⚠️ **QUAN TRỌNG:** Không bao giờ commit file `.env` và thư mục `uploads/`!
 
-```
-define('WP_HOME','http://wp-app.local');
-define('WP_SITEURL','http://wp-app.local');
+---
+
+## 🗄️ Database Migration — Chia sẻ DB giữa các thành viên
+
+Đây là phần **dễ sai nhất** khi làm nhóm, hãy làm theo quy trình sau:
+
+### 🔄 Quy trình đồng bộ Database
+
+```mermaid
+flowchart LR
+    A[Bạn update DB] -->|./export.sh| B[File .sql]
+    B -->|git add + commit + push| C[GitHub]
+    C -->|Bạn kia git pull| D[File .sql mới]
+    D -->|copy vào wp-data/| E[Restart Docker]
+    E --> F[Cả team cùng DB]
 ```
 
-### Creating database dumps
+### Bước 1: Export DB (người có dữ liệu mới)
 
-```
+```bash
+# Trên Linux hoặc Git Bash (Windows):
+chmod +x export.sh
 ./export.sh
 ```
 
-### Developing a Theme
+File `.sql` sẽ được tạo trong thư mục `wp-data/`.
 
-Configure the volume to load the theme in the container in the `docker-compose.yml`:
+### Bước 2: Commit file SQL lên Git
 
-```
-volumes:
-  - ./theme-name/trunk/:/var/www/html/wp-content/themes/theme-name
-```
-
-### Developing a Plugin
-
-Configure the volume to load the plugin in the container in the `docker-compose.yml`:
-
-```
-volumes:
-  - ./plugin-name/trunk/:/var/www/html/wp-content/plugins/plugin-name
+```bash
+git add wp-data/
+git commit -m "db: cập nhật database ngày XYZ"
+git push
 ```
 
-### WP CLI
+### Bước 3: Import DB (người kia)
 
-The docker compose configuration also provides a service for using the [WordPress CLI](https://developer.wordpress.org/cli/commands/).
+```bash
+# Kéo file SQL mới về
+git pull origin develop
 
-Sample command to install WordPress:
-
-```
-docker-compose run --rm wpcli core install --url=http://localhost --title=test --admin_user=admin --admin_email=test@example.com
-```
-
-Or to list installed plugins:
-
-```
-docker-compose run --rm wpcli plugin list
+# Đặt file .sql vào wp-data/, restart container
+docker compose down
+docker compose up -d
 ```
 
-For an easier usage you may consider adding an alias for the CLI:
+> MySQL container sẽ **tự động import** file `.sql` từ `wp-data/` khi khởi động lần đầu.
+> Nếu DB đã tồn tại, import thủ công:
+> ```bash
+> docker compose exec -T db sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE"' < wp-data/ten_file.sql
+> ```
 
+---
+
+## 🔧 Các lệnh thường dùng
+
+### Docker Compose
+
+| Lệnh | Mô tả |
+|------|-------|
+| `docker compose up -d` | Khởi động containers (nền) |
+| `docker compose down` | Dừng và xoá containers |
+| `docker compose down -v` | Xoá luôn database volume (⚠️ mất DB local) |
+| `docker compose start` | Bắt đầu containers đã có |
+| `docker compose stop` | Tạm dừng containers |
+| `docker compose restart` | Khởi động lại |
+| `docker compose ps` | Xem trạng thái |
+| `docker compose logs -f` | Xem log (nhấn Ctrl+C để thoát) |
+
+### WP-CLI (Quản lý WordPress)
+
+```bash
+# Cài plugin
+docker compose run --rm wpcli plugin install woocommerce --activate
+
+# Cài theme
+docker compose run --rm wpcli theme install storefront --activate
+
+# Danh sách plugin
+docker compose run --rm wpcli plugin list
+
+# Tạo user admin mới
+docker compose run --rm wpcli user create admin2 admin2@example.com --role=administrator --user_pass=password
 ```
-alias wp="docker-compose run --rm wpcli"
+
+> 💡 **Mẹo**: Thêm alias để gõ nhanh hơn:
+> ```bash
+> alias wp="docker compose run --rm wpcli"
+> ```
+> Sau đó chỉ cần gõ: `wp plugin list`
+
+---
+
+## 🧩 Phân chia công việc — E-Commerce Team
+
+Khi làm trang **thương mại điện tử** với WordPress + WooCommerce, team có thể chia như sau:
+
+### 👤 Thành viên A (Front-end / Theme)
+**Công việc:**
+- Code theme con (child theme) trong `wp-app/wp-content/themes/`
+- Tuỳ chỉnh giao diện, CSS, template
+- Cài Storefront hoặc theme thương mại điện tử
+
+**Làm việc:**
+```bash
+# Code trực tiếp trong thư mục themes/
+code wp-app/wp-content/themes/
 ```
 
-This way you can use the CLI command above as follows:
+### 👤 Thành viên B (Plugin / Tính năng)
+**Công việc:**
+- Phát triển/tuỳ chỉnh plugin
+- WooCommerce customization (giỏ hàng, thanh toán, shipping)
+- API integrations
 
+**Làm việc:**
+```bash
+# Mỗi plugin là một thư mục riêng trong plugins/
+code wp-app/wp-content/plugins/
 ```
-wp plugin list
+
+### 👤 Thành viên C (DB / Nội dung / Admin)
+**Công việc:**
+- Quản lý database migrations
+- Thêm sản phẩm mẫu, danh mục
+- Cấu hình WooCommerce settings
+- Quản lý phpMyAdmin
+
+**Làm việc:**
+```bash
+# Export DB sau khi thay đổi
+./export.sh
+git add wp-data/
+git commit -m "db: cập nhật sản phẩm mẫu"
 ```
 
-### phpMyAdmin
+### 📋 Gợi ý kế hoạch phát triển E-Commerce
 
-You can also visit `http://127.0.0.1:8080` to access phpMyAdmin after starting the containers.
+| Tuần | Việc | Người phụ trách |
+|------|------|----------------|
+| 1 | Cài WooCommerce, tạo sản phẩm mẫu | Admin |
+| 1 | Chọn & tùy chỉnh theme | Front-end |
+| 2 | Cấu hình giỏ hàng, thanh toán | Plugin dev |
+| 2 | Tùy chỉnh giao diện sản phẩm | Front-end |
+| 3 | Shipping methods, taxes | Plugin dev |
+| 3 | Tối ưu mobile, responsive | Front-end |
+| 4 | Testing, sửa lỗi | Cả team |
 
-The default username is `root`, and the password is the same as supplied in the `.env` file.
+---
+
+## 🪟 Lưu ý riêng cho Windows
+
+| Vấn đề | Giải pháp |
+|--------|-----------|
+| **Chạy `.sh` script** | Dùng **Git Bash** thay vì CMD/PowerShell |
+| **Port 80 bị chiếm** | Đổi `PORT=8080` trong `.env`, truy cập http://127.0.0.1:8080 |
+| **File permissions** | File trong container có thể bị permission denied. Chạy: `docker compose exec wp chown -R www-data:www-data /var/www/html/wp-content/` |
+| **Docker chậm** | Docker Desktop trên Windows chậm hơn Linux. Kiên nhẫn lần đầu. |
+| **CRLF -> LF** | File `.gitattributes` đã cấu hình sẵn, Git tự động chuyển đổi |
+
+---
+
+## ⚠️ Troubleshooting
+
+### 1. "port is already allocated"
+→ Port 80 đã có app khác dùng. Sửa `PORT` trong `.env` thành `8080` hoặc `3000`.
+
+### 2. Lỗi permission khi upload media
+```bash
+docker compose exec wp chown -R www-data:www-data /var/www/html/wp-content/uploads/
+```
+
+### 3. WordPress hỏi FTP khi cài plugin
+→ Thêm vào `wp-app/wp-config.php`:
+```php
+define('FS_METHOD', 'direct');
+```
+
+### 4. Quên mật khẩu admin
+```bash
+docker compose run --rm wpcli user update admin --user_pass=newpassword
+```
+
+---
+
+## 📚 Kiến thức cần biết thêm
+
+- [Docker Documentation](https://docs.docker.com/)
+- [WordPress Developer Handbook](https://developer.wordpress.org/)
+- [WooCommerce Developer Docs](https://woocommerce.com/document/woocommerce-developer-documentation/)
+- [GitHub Flow Guide](https://docs.github.com/en/get-started/using-github/github-flow)
