@@ -6,17 +6,85 @@
 .env.*
 
 # ──────────────────────────────────────────────
-# WordPress - Ignore core + uploads (regenerated)
+# WordPress Core — KHÔNG track! Đã có sẵn trong
+# Docker image wordpress:latest. Chỉ track
+# wp-content/ (theme/plugin tự code) + wp-config.php
 # ──────────────────────────────────────────────
+wp-app/index.php
+wp-app/license.txt
+wp-app/readme.html
+wp-app/wp-activate.php
+wp-app/wp-blog-header.php
+wp-app/wp-comments-post.php
+wp-app/wp-config-docker.php
+wp-app/wp-config-sample.php
+wp-app/wp-cron.php
+wp-app/wp-links-opml.php
+wp-app/wp-load.php
+wp-app/wp-login.php
+wp-app/wp-mail.php
+wp-app/wp-settings.php
+wp-app/wp-signup.php
+wp-app/wp-trackback.php
+wp-app/xmlrpc.php
+wp-app/.htaccess
+wp-app/wp-admin/
+wp-app/wp-includes/
+
+# Track custom wp-config.php (nếu có)
+!wp-app/wp-config.php
+
+# ──────────────────────────────────────────────
+# WordPress Content — chỉ track những gì team
+# tự code (themes, plugins, mu-plugins)
+# ──────────────────────────────────────────────
+
+# Uploads: không track (file media mỗi người khác nhau)
 wp-app/wp-content/uploads/*
 !wp-app/wp-content/uploads/.gitkeep
 
+# Cache & logs
+wp-app/wp-content/cache/
+wp-app/wp-content/wflogs/
+wp-app/wp-content/upgrade/
+wp-app/wp-content/debug.log
+
+# Chỉ track themes và plugins tự code
+# Theme mặc định của WP không cần track
+wp-app/wp-content/themes/twenty*
+wp-app/wp-content/themes/index.php
+
+# Plugin mặc định (Akismet, Hello Dolly) không cần track
+wp-app/wp-content/plugins/akismet/
+wp-app/wp-content/plugins/hello.php
+wp-app/wp-content/plugins/index.php
+
+# Languages
+wp-app/wp-content/languages/
+
+# Mu-plugins index
+wp-app/wp-content/mu-plugins/index.php
+
 # ──────────────────────────────────────────────
-# Database dumps (each dev imports their own)
+# Database dumps — track để chia sẻ DB giữa team
 # ──────────────────────────────────────────────
 wp-data/*
 !wp-data/.gitkeep
-*.sql
+!wp-data/export_*.sql
+
+# ──────────────────────────────────────────────
+# OS files
+# ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ──────────────────────────────────────────────
+# Docker
+# ──────────────────────────────────────────────
+docker-compose.override.yml
 
 # ──────────────────────────────────────────────
 # OS files
