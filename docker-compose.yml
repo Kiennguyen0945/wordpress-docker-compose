@@ -54,7 +54,7 @@ services:
     image: mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
     # platform: linux/x86_64  # Uncomment if your machine is running on arm (ex: Apple Silicon processor)
     ports:
-      - ${IP}:3306:3306 # change ip if required
+      - ${IP}:3307:3306 # change ip if required
     command: [
         '--character-set-server=utf8mb4',
         '--collation-server=utf8mb4_unicode_ci'
@@ -68,3 +68,5 @@ services:
 
 volumes:
   db_data:
+
+# hi
