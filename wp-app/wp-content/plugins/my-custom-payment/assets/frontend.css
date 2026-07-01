@@ -1,0 +1,27 @@
+/**
+ * My Custom Payment — Frontend Styles
+ *
+ * @package My_Custom_Payment
+ * @since   1.0.0
+ */
+
+.mcp-bank-info {
+	background: #f0f4f8;
+	border-left: 4px solid #4a90d9;
+	padding: 15px 18px;
+	border-radius: 4px;
+	margin: 12px 0;
+	font-size: 14px;
+	line-height: 1.8;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.mcp-bank-info strong {
+	color: #2c3e50;
+}
+
+.payment_method_mcp_custom_payment label img {
+	max-height: 32px;
+	vertical-align: middle;
+	margin-right: 8px;
+}
