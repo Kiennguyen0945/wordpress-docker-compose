@@ -75,11 +75,16 @@ final class WC_MCP_Blocks_Integration extends AbstractPaymentMethodType {
 	 * @return array
 	 */
 	public function get_payment_method_data() {
+		$gateway = new WC_Gateway_My_Custom_Payment();
+
 		return array(
-			'title'       => $this->get_setting( 'title' ),
-			'description' => $this->get_setting( 'description' ),
-			'bank_info'   => $this->get_setting( 'bank_info', '' ),
-			'supports'    => $this->get_supported_features(),
+			'title'           => $this->get_setting( 'title' ),
+			'description'     => $this->get_setting( 'description' ),
+			'bank_info'       => $this->get_setting( 'bank_info', '' ),
+			'supports'        => $this->get_supported_features(),
+			'publishable_key' => $gateway->get_publishable_key(),
+			'test_mode'       => 'yes' === $this->get_setting( 'test_mode', 'yes' ),
+			'is_stripe'       => $gateway->is_stripe_configured(),
 		);
 	}
 }

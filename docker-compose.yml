@@ -83,7 +83,19 @@ services:
       retries: 10
       start_period: 20s
 
+  # ────────────────────────────────────────────
+  # Stripe CLI — chuyển tiếp webhook local
+  #   docker compose --profile stripe up -d stripe-cli
+  # ────────────────────────────────────────────
+  stripe-cli:
+    image: stripe/stripe-cli:latest
+    profiles:
+      - stripe            # ← chỉ chạy khi dùng --profile stripe
+    command: listen --forward-to http://wp/wp-json/mcp/v1/webhook --api-key ${STRIPE_SECRET_KEY} --webhook-secret ${STRIPE_WEBHOOK_SECRET}
+    environment:
+      STRIPE_API_KEY: ${STRIPE_SECRET_KEY}
+    depends_on:
+      - wp
+
 volumes:
   db_data:
-
-# hi
