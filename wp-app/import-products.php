@@ -414,7 +414,7 @@ function create_simple_product($data, $index) {
     // Màu sắc
     $color_term_ids = [];
     foreach ($data['mau_sac'] as $color_name) {
-        $term = get_term_by('slug', sanitize_title($color_name), 'pa_mau-sac');
+        $term = get_term_by('name', $color_name, 'pa_mau-sac');
         if ($term) {
             $color_term_ids[] = $term->term_id;
         }
@@ -430,7 +430,7 @@ function create_simple_product($data, $index) {
     }
 
     // Loại hoa chính
-    $flower_term = get_term_by('slug', sanitize_title($data['loai_hoa']), 'pa_loai-hoa-chinh');
+    $flower_term = get_term_by('name', $data['loai_hoa'], 'pa_loai-hoa-chinh');
     if ($flower_term) {
         $attr_flower = new WC_Product_Attribute();
         $attr_flower->set_id(wc_attribute_taxonomy_id_by_name('pa_loai-hoa-chinh'));
@@ -491,6 +491,9 @@ function create_variable_product($data, $index) {
         return 0;
     }
 
+    // ⚠️ Quan trọng: Gán terms trực tiếp vào product để attribute dropdown hoạt động
+    wp_set_object_terms($product_id, $attr_size_term_ids, 'pa_kich-thuoc');
+
     echo "  [TAO] Variable Product #{$index}: {$data['name']} — (SKU: {$sku}, ID: {$product_id})\n";
 
     // Tạo các biến thể (variations) cho 3 kích thước
@@ -511,7 +514,8 @@ function create_variable_product($data, $index) {
         $variation->set_manage_stock(false);
 
         // Gán thuộc tính kích thước cho variation
-        $size_term = get_term_by('slug', sanitize_title($size_name), 'pa_kich-thuoc');
+        // Search by NAME because slug may have auto-prefix (e.g. "kich-thuoc-nho")
+        $size_term = get_term_by('name', $size_name, 'pa_kich-thuoc');
         if ($size_term) {
             $variation->set_attributes(['pa_kich-thuoc' => $size_term->slug]);
         }
