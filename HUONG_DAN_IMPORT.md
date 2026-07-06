@@ -98,10 +98,23 @@ wp-app/
 ├── fix-all.php              ← Fix tổng hợp: giá + attribute terms + price cache
 ├── fix-prices.php           ← Fix giá nếu bị sai (x1000)
 ├── fix-variations.php       ← Fix variation attribute
+├── fix-stock.php            ← Bật quản lý tồn kho (nếu sản phẩm thiếu stock)
 ├── rebuild-prices.php       ← Xây lại price cache
 ```
 
 > **Cách dùng:** Chỉ cần chạy `import-products.php` là đủ. Nếu gặp lỗi, chạy `fix-all.php` trước, sau đó chạy lại `import-products.php`.
+
+## 📦 Quản lý tồn kho (Stock)
+
+Script import hiện đã bật quản lý tồn kho cho tất cả sản phẩm:
+- **Sản phẩm đơn giản:** Tồn kho mặc định = **100**
+- **Biến thể (variation):** Tồn kho mặc định = **50** mỗi size
+- Khi có đơn hàng, số lượng sẽ tự động trừ đi
+
+> ⚠️ Nếu đã import trước đó và sản phẩm **không có số lượng tồn kho**, chạy lệnh sau để fix:
+> ```bash
+> docker compose run --rm wpcli wp eval-file /var/www/html/fix-stock.php
+> ```
 
 ## 📞 Hỗ trợ
 

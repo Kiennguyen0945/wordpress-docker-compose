@@ -405,7 +405,8 @@ function create_simple_product($data, $index) {
     $product->set_regular_price($data['price']);
     $product->set_sku($sku);
     $product->set_stock_status('instock');
-    $product->set_manage_stock(false);
+    $product->set_manage_stock(true);
+    $product->set_stock_quantity(100);
     $product->set_category_ids(get_category_ids($data['categories']));
 
     // Gán thuộc tính màu sắc (dạng product level, không phải variation)
@@ -463,6 +464,7 @@ function create_variable_product($data, $index) {
     $product->set_short_description($data['desc']);
     $product->set_sku($sku);
     $product->set_stock_status('instock');
+    // Variable product cha KHÔNG cần manage_stock — chỉ variations mới cần
     $product->set_manage_stock(false);
     $product->set_category_ids(get_category_ids($data['categories']));
 
@@ -511,7 +513,8 @@ function create_variable_product($data, $index) {
         $variation->set_sku($sku . '-' . sanitize_title($size_name));
         $variation->set_regular_price($variation_price);
         $variation->set_stock_status('instock');
-        $variation->set_manage_stock(false);
+        $variation->set_manage_stock(true);
+        $variation->set_stock_quantity(50);
 
         // Gán thuộc tính kích thước cho variation
         // Search by NAME because slug may have auto-prefix (e.g. "kich-thuoc-nho")
