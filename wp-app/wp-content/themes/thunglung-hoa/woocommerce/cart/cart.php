@@ -153,6 +153,13 @@ do_action('woocommerce_before_cart');
               </div>
             <?php endif; ?>
 
+            <?php if (WC()->cart->needs_shipping()) : ?>
+              <div class="panel-row panel-shipping">
+                <span>Phí vận chuyển</span>
+                <span class="ship-free">Miễn phí – 0₫</span>
+              </div>
+            <?php endif; ?>
+
             <div class="panel-row panel-total">
               <span>Tổng cộng</span>
               <span><?php echo WC()->cart->get_cart_total(); ?></span>

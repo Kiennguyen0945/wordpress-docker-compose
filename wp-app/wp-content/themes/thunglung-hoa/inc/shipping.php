@@ -9,17 +9,29 @@
  */
 
 /**
- * Set free shipping for all orders.
- * Bật dòng bên dưới để miễn phí ship toàn bộ:
+ * Xoá cache phí ship mỗi lần load trang → đảm bảo code luôn chạy.
  */
-// add_filter('woocommerce_package_rates', 'tlh_free_shipping', 100);
-
-function tlh_free_shipping($rates) {
-    // Chỉ giữ lại free shipping method, xóa các method khác
-    foreach ($rates as $rate_id => $rate) {
-        if ('free_shipping' !== $rate->method_id) {
-            unset($rates[$rate_id]);
+add_action('woocommerce_before_calculate_totals', 'tlh_clear_rates_cache');
+function tlh_clear_rates_cache() {
+    if (WC()->session) {
+        $i = 0;
+        while (WC()->session->__isset('shipping_for_package_' . $i)) {
+            WC()->session->__unset('shipping_for_package_' . $i);
+            $i++;
         }
+    }
+}
+
+/**
+ * Chuyển TẤT CẢ phương thức vận chuyển thành Miễn phí (0đ).
+ * Shop sẽ trao đổi phí ship trực tiếp với khách hàng.
+ */
+add_filter('woocommerce_package_rates', 'tlh_set_free_shipping', 100, 2);
+function tlh_set_free_shipping($rates, $package) {
+    foreach ($rates as $rate_id => $rate) {
+        $rate->cost  = 0;
+        $rate->taxes = array();
+        $rate->label = 'Miễn phí vận chuyển';
     }
     return $rates;
 }
@@ -29,30 +41,13 @@ function tlh_free_shipping($rates) {
  */
 add_filter('woocommerce_free_shipping_min_amount', 'tlh_free_shipping_min_amount');
 function tlh_free_shipping_min_amount() {
-    return 0; // 0 = miễn phí ship mọi đơn hàng
+    return 0;
 }
 
 /**
- * Hide shipping methods when free shipping is available.
- */
-add_filter('woocommerce_shipping_methods', 'tlh_hide_shipping_when_free');
-function tlh_hide_shipping_when_free($available_methods) {
-    if (isset($available_methods['free_shipping'])) {
-        // Chỉ giữ free shipping
-        $free = $available_methods['free_shipping'];
-        $available_methods = [];
-        $available_methods['free_shipping'] = $free;
-    }
-    return $available_methods;
-}
-
-/**
- * Custom shipping label.
+ * Custom shipping label (fallback).
  */
 add_filter('woocommerce_shipping_method_title', 'tlh_shipping_label', 10, 2);
 function tlh_shipping_label($title, $method) {
-    if ('free_shipping' === $method->method_id) {
-        return 'Miễn phí giao hàng';
-    }
-    return $title;
+    return 'Miễn phí vận chuyển';
 }
