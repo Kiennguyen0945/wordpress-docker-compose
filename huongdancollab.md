@@ -122,14 +122,31 @@ git add -A
 git commit -m "Initial: theme Royal Flower Studio modular structure"
 ```
 
+### Quy trình merge code local → master trước khi push
+
+> **Quy tắc chung:** Luôn merge feature branch vào `master` ở local TRƯỚC, xử lý conflict nếu có, **rồi mới** đẩy lên remote.
+
+```bash
+# Bước 1: Chuyển về master và cập nhật mới nhất
+git checkout master
+git pull origin master
+
+# Bước 2: Merge feature branch của bạn vào master
+git merge feature/ten-branch
+# (xử lý conflict nếu có — xem hướng dẫn ở phần dưới)
+
+# Bước 3: Đẩy master đã merge lên remote
+git push origin master
+```
+
 ### Mỗi ngày — Quy trình chuẩn
 
 #### 👤 Người A — Làm task hồ sơ, auth, ship
 
 ```bash
-# 1. Luôn bắt đầu từ main mới nhất
-git checkout main
-git pull origin main
+# 1. Luôn bắt đầu từ master mới nhất
+git checkout master
+git pull origin master
 
 # 2. Tạo branch riêng
 git checkout -b feature/user-auth-profile
@@ -146,22 +163,19 @@ git commit -m "Add login form template"
 git add inc/user-profile.php template-parts/user/profile.php
 git commit -m "Add user profile page"
 
-# 5. Đẩy lên remote
-git push origin feature/user-auth-profile
-
-# 6. Khi hoàn thành task → merge vào main
-git checkout main
-git pull origin main
+# 5. Merge local vào master rồi mới push
+git checkout master
+git pull origin master
 git merge feature/user-auth-profile
-git push origin main
+git push origin master
 ```
 
 #### 👤 Người B — Làm task lọc, layout, thanh toán
 
 ```bash
-# 1. Luôn bắt đầu từ main mới nhất
-git checkout main
-git pull origin main
+# 1. Luôn bắt đầu từ master mới nhất
+git checkout master
+git pull origin master
 
 # 2. Tạo branch riêng
 git checkout -b feature/filters-layout
@@ -181,14 +195,11 @@ git commit -m "Add AJAX product filters"
 git add assets/js/filters.js assets/css/shop.css
 git commit -m "Add filter JS + shop CSS"
 
-# 5. Đẩy lên remote
-git push origin feature/filters-layout
-
-# 6. Merge khi xong
-git checkout main
-git pull origin main
+# 5. Merge local vào master rồi mới push
+git checkout master
+git pull origin master
 git merge feature/filters-layout
-git push origin main
+git push origin master
 ```
 
 ### Khi có conflict — Xử lý thế nào?
@@ -202,15 +213,19 @@ git status
 
 # Mở file đó trong VS Code, tìm:
 # <<<<<<< HEAD
-# code của bạn
+# code của bạn (master)
 # =======
-# code của người kia
+# code của người kia (feature branch)
 # >>>>>>> branch-name
 
 # Giữ lại code ĐÚNG, xóa dòng <<<<, ====, >>>>
 # Sau đó:
 git add inc/enqueue.php
 git commit -m "Resolve conflict in enqueue.php"
+
+# Kiểm tra lại rồi push
+git status
+git push origin master
 ```
 
 > **Nguyên tắc**: Nếu conflict ở file KHÔNG PHẢI của mình → gọi người kia ra hỏi trước khi sửa!
@@ -225,7 +240,7 @@ git commit -m "Resolve conflict in enqueue.php"
 4. **🚫 KHÔNG sửa file trong `woocommerce/`** — giữ nguyên.
 5. **👤 Mỗi người chỉ sửa file đã phân công** — không đụng file của người kia.
 6. **💬 Luôn commit trước khi merge** — commit nhỏ, thường xuyên.
-7. **🌿 Luôn tạo branch riêng** — không code trực tiếp trên `main`.
+7. **🌿 Luôn tạo branch riêng** — không code trực tiếp trên `master`.
 8. **📢 Báo nhau trước khi sửa file "(Chung)"** — như `base.css`, `home.css`, `responsive.css`.
 
 ---
