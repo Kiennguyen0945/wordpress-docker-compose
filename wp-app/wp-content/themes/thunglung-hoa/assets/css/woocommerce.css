@@ -1,0 +1,33 @@
+/* =========================================================
+   THUNG LŨNG HOA — WooCommerce overrides
+   ========================================================= */
+
+.woocommerce-message, .woocommerce-info, .woocommerce-error{
+  padding:16px 24px; margin:0 32px 24px; border-radius:8px; font-size:.9rem;
+}
+.woocommerce-message{background:#e8f0e4; color:#3c5a3c; border-left:4px solid #6a9a6a;}
+.woocommerce-info{background:var(--accent-soft); color:var(--accent); border-left:4px solid var(--accent);}
+.woocommerce-error{background:#fbeaea; color:#8a3c3c; border-left:4px solid #c75a5a;}
+.woocommerce-message .button, .woocommerce-info .button{font-weight:600; margin-left:16px;}
+.woocommerce .quantity .qty{width:60px; padding:10px; border:1px solid var(--line); text-align:center;}
+.woocommerce form .form-row .input-text, .woocommerce-page form .form-row .input-text{padding:13px 16px; border:1px solid var(--line); background:var(--bg);}
+.woocommerce form .form-row textarea{height:100px;}
+.woocommerce-checkout .select2-container .select2-selection--single{border:1px solid var(--line); padding:10px; height:auto;}
+.woocommerce .wc-proceed-to-checkout a.checkout-button{padding:18px 36px; font-size:1rem;}
+.woocommerce .cart-collaterals .cart_totals table{border:1px solid var(--line);}
+.woocommerce table.shop_table{border:1px solid var(--line); border-radius:0;}
+.woocommerce table.shop_table th{font-family:var(--sans); font-weight:700; font-size:.85rem; text-transform:uppercase; letter-spacing:.06em; padding:14px 16px;}
+.woocommerce table.shop_table td{padding:14px 16px;}
+.woocommerce table.shop_table .product-thumbnail img{width:60px; border-radius:8px;}
+.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button{
+  border-radius:100px; font-weight:600; padding:15px 30px;
+}
+.woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt{
+  background:var(--accent); color:var(--white); border-radius:100px;
+}
+.woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover{
+  background:var(--primary); color:var(--white);
+}
+.woocommerce .widget_price_filter .ui-slider .ui-slider-range{background:var(--accent);}
+.woocommerce .widget_price_filter .ui-slider .ui-slider-handle{background:var(--accent);}
+.woocommerce .widget_layered_nav ul li a:hover{color:var(--accent);}

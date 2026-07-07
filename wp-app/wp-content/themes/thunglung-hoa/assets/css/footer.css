@@ -1,0 +1,18 @@
+/* =========================================================
+   THUNG LŨNG HOA — Footer
+   ========================================================= */
+
+.site-footer{padding:70px 32px 30px; margin-top:60px;}
+.footer-grid{display:grid; grid-template-columns:1.6fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:50px; border-bottom:1px solid var(--line);}
+.footer-brand p{color:#5b5049; font-size:.92rem; margin:16px 0 20px; max-width:34ch;}
+.footer-social{display:flex; gap:14px;}
+.footer-social a{width:36px; height:36px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; transition:background .2s,color .2s;}
+.footer-social a:hover{background:var(--accent); color:var(--white); border-color:var(--accent);}
+.footer-col h4{font-size:.85rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:18px; font-family:var(--sans); font-weight:700;}
+.footer-col ul li{margin-bottom:12px; font-size:.92rem; color:#5b5049;}
+.footer-col ul li a:hover{color:var(--accent);}
+.footer-bottom{display:flex; justify-content:space-between; padding-top:26px; font-size:.82rem; color:#8a7f75; flex-wrap:wrap; gap:12px;}
+.newsletter-row{display:flex; gap:0; margin-top:6px; max-width:360px;}
+.newsletter-row input{flex:1; padding:13px 16px; border:1px solid var(--line); border-right:none; background:var(--white);}
+.newsletter-row button{padding:13px 20px; background:var(--accent); color:var(--white); font-weight:600; font-size:.9rem;}
+.newsletter-row button:hover{background:var(--primary);}

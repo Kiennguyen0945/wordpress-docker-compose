@@ -1,0 +1,41 @@
+/* =========================================================
+   THUNG LŨNG HOA — User: Login, Register, Profile
+   Người phụ trách: [Người A] — sửa file này khi làm auth/profile
+   ========================================================= */
+
+.user-form-wrapper{
+  max-width:480px; margin:40px auto; padding:40px 36px;
+  background:var(--white); border:1px solid var(--line);
+}
+.user-form-wrapper h2{
+  text-align:center; margin-bottom:28px;
+}
+.user-form{display:flex; flex-direction:column; gap:16px;}
+.user-form .btn{margin-top:8px;}
+
+/* Profile page */
+.user-profile-wrapper{
+  max-width:720px; margin:40px auto; padding:0 32px;
+}
+.user-profile-wrapper h2{margin-bottom:28px;}
+
+.profile-header-card{
+  display:flex; align-items:center; gap:20px; padding:24px;
+  background:var(--white); border:1px solid var(--line); margin-bottom:32px;
+}
+.profile-avatar .avatar-img{width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--secondary);}
+.profile-name h3{margin-bottom:4px;}
+.profile-email{font-size:.88rem; color:#8a7f75;}
+
+.profile-section{margin-top:40px; padding-top:30px; border-top:1px solid var(--line);}
+.profile-section h3{font-size:1.1rem; margin-bottom:20px;}
+
+.order-list{display:flex; flex-direction:column; gap:12px;}
+.order-item{
+  display:grid; grid-template-columns:1fr 1.5fr 1fr 1fr; gap:12px; align-items:center;
+  padding:14px 18px; background:var(--white); border:1px solid var(--line); font-size:.9rem;
+}
+.order-id{font-weight:600; color:var(--accent);}
+.order-date{color:#8a7f75;}
+.order-status{font-size:.82rem; font-weight:600;}
+.order-total{font-weight:600; text-align:right;}

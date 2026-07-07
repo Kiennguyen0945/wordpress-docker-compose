@@ -1,48 +1,183 @@
-# HƯỚNG DẪN IMPORT SẢN PHẨM VÀO CỬA HÀNG HOA
+# 🌸 HƯỚNG DẪN IMPORT SẢN PHẨM VÀO CỬA HÀNG HOA
 
-## 📋 Yêu cầu hệ thống
+> Dành cho bạn — hướng dẫn chi tiết từ A→Z để chạy được cửa hàng hoa trên máy tính.
 
-- **Docker** đã được cài đặt
-- **WordPress + WooCommerce** đã chạy
-- Đã clone/pull source code từ GitHub
+---
 
-## 🚀 Cách import sản phẩm
+## 📋 YÊU CẦU TRƯỚC KHI BẮT ĐẦU
 
-### 1. Mở terminal
+Bạn cần cài sẵn những thứ này trên máy:
 
-Mở terminal (Command Prompt, PowerShell, hoặc Git Bash).
+| Phần mềm | Tải ở đâu | Ghi chú |
+|----------|----------|---------|
+| **Docker Desktop** | https://www.docker.com/products/docker-desktop/ | Cài xong nhớ khởi động Docker lên |
+| **Git** | https://git-scm.com/downloads | Để tải code về máy |
+| **Trình duyệt** | Chrome / Edge / Cốc Cốc | Để xem website |
 
-### 2. Di chuyển vào thư mục project
+---
 
+## 🚀 HƯỚNG DẪN TỪNG BƯỚC (dành cho người mới)
+
+### Bước 0: Mở Terminal
+
+- **Windows:** Mở **Git Bash** (hoặc Command Prompt / PowerShell)
+- **macOS / Linux:** Mở **Terminal**
+
+### Bước 1: Tải source code về máy
+
+Gõ lệnh sau để tải project về (chọn 1 trong 2 cách):
+
+**Cách 1 — Clone bằng Git:**
+```bash
+git clone <đường-dẫn-github-của-project>
+cd ecommerce-wordpress
+```
+
+**Cách 2 — Giải nén file ZIP:**
+Nếu bạn có file `.zip`, giải nén ra, rồi mở terminal và di chuyển vào thư mục vừa giải nén:
 ```bash
 cd /đường/dẫn/tới/thư/mục/ecommerce-wordpress
 ```
 
-### 3. Chạy lệnh import
+> 💡 **Mẹo:** Trên Windows, bạn có thể gõ `cd ` (có khoảng trắng) rồi kéo thả thư mục vào cửa sổ terminal — đường dẫn sẽ tự điền.
+
+### Bước 2: Tạo file cấu hình
+
+Trong thư mục project, tạo file `.env` từ file mẫu:
+
+- **Linux / macOS / Git Bash:**
+  ```bash
+  cp env.example .env
+  ```
+- **Windows (CMD):**
+  ```cmd
+  copy env.example .env
+  ```
+
+Sau đó mở file `.env` lên (bằng Notepad hoặc bất kỳ trình soạn thảo nào) và **kiểm tra các thông số**:
+
+```ini
+IP=127.0.0.1              # Giữ nguyên
+PORT=80                   # Nếu cổng 80 bị trùng, đổi thành 8080
+DB_ROOT_PASSWORD=password # Có thể đổi nếu muốn
+DB_NAME=wordpress         # Giữ nguyên
+```
+
+> ⚠️ **Nếu đổi PORT=8080**, sau này vào web sẽ là `http://127.0.0.1:8080` thay vì `http://127.0.0.1`.
+
+### Bước 3: Khởi động Docker
+
+**Lần đầu tiên**, bạn cần khởi động các container:
+
+```bash
+docker compose up -d
+```
+
+Lệnh này sẽ tải về các hình ảnh (images) cần thiết và chạy WordPress + MySQL.  
+⏳ **Lần đầu chạy sẽ hơi lâu** (5-15 phút tuỳ internet). Các lần sau sẽ nhanh hơn.
+
+Để kiểm tra xem đã chạy xong chưa, gõ:
+```bash
+docker compose ps
+```
+Bạn sẽ thấy các container có trạng thái `Up` (đang chạy).
+
+### Bước 4: Cài WordPress (lần đầu)
+
+Mở trình duyệt vào địa chỉ:
+- **http://127.0.0.1** (nếu PORT=80)
+- **http://127.0.0.1:8080** (nếu PORT=8080)
+
+Bạn sẽ thấy màn hình cài đặt WordPress. Làm theo các bước:
+
+1. Chọn ngôn ngữ → **Tiếng Việt** (hoặc English)
+2. Điền thông tin:
+   - **Tên website:** `FlowerShop` (hoặc tên bạn muốn)
+   - **Tên đăng nhập:** `admin`
+   - **Mật khẩu:** Chọn mật khẩu mạnh (ví dụ: `Admin@123`)
+   - **Email:** Email của bạn
+3. Nhấn **Cài đặt WordPress**
+
+Sau khi cài xong, bạn sẽ thấy trang WordPress.
+
+### Bước 5: Cài plugin WooCommerce
+
+Vào **Plugins → Add New**, gõ "WooCommerce" vào ô tìm kiếm, nhấn **Install Now** → **Activate**.
+
+> ⏳ WooCommerce cỡ ~30MB, cần chờ tải về. Nếu bị chậm là do internet, hãy kiên nhẫn.
+
+Sau khi kích hoạt, WooCommerce sẽ hiện wizard hướng dẫn — bạn có thể tắt wizard đi cũng được (nhấn "Skip" hoặc ra ngoài).
+
+Kiểm tra: Vào **Plugins → Installed Plugins**, thấy **WooCommerce** hiện màu xanh "Active" là OK.
+
+### Bước 6: Import sản phẩm mẫu
+
+Mở lại terminal, gõ lệnh:
 
 ```bash
 docker compose run --rm wpcli wp eval-file /var/www/html/import-products.php
 ```
 
-Chờ khoảng 30 giây để script chạy xong. Kết quả sẽ hiện như sau:
+Chờ khoảng 30 giây để script chạy. Kết quả thành công sẽ hiện:
 
 ```
 ═══════════════════════════════════════════════════════
-  🏪 IMPORT SẢN PHẨM HOA MẪU — WooCommerce
+  🏪 IMPORT SẢN PHẨM HOA MẪU — WooCommerce
 ═══════════════════════════════════════════════════════
-...
-✅ TẬP DỮ LIỆU IMPORT HOÀN TẤT!
+
+[OK] WooCommerce đã kích hoạt.
+
+─── Bước 1. Tạo Danh mục (Categories) ───
+  [TAO] Đã tạo danh mục: Hoa theo dịp ...
+  ...
+
+─── Bước 2. Tạo Thuộc tính (Attributes) ───
+  ...
+
+─── Bước 3. Tạo Sản phẩm đơn giản ───
+  ...
+
+─── Bước 4. Tạo Sản phẩm biến thể ───
+  ...
+
+═══════════════════════════════════════════════════════
+  ✅ TẬP DỮ LIỆU IMPORT HOÀN TẤT!
+═══════════════════════════════════════════════════════
+
 Tổng số sản phẩm: 20
   - Đơn giản:    10
   - Biến thể:   10
 Tổng số biến thể: 30
 ```
 
-### 4. Kiểm tra kết quả
+> ❌ **Lỗi `WooCommerce chưa được kích hoạt`** → Quay lại Bước 5, cài WooCommerce và kích hoạt.
 
-Mở trình duyệt vào trang web:
-- **Trang shop:** http://127.0.0.1/shop
-- **Trang quản trị:** http://127.0.0.1/wp-admin → Products → All Products
+> ❌ **Lỗi `Kết nối database thất bại`** → Gõ `docker compose up -d` để khởi động lại, đợi 30s rồi chạy lại.
+
+### Bước 7: Kiểm tra kết quả
+
+Mở trình duyệt vào:
+
+- **🛒 Trang shop:** http://127.0.0.1/shop  
+  (hoặc http://127.0.0.1:8080/shop nếu đổi port)
+  
+- **🔧 Trang quản trị:** http://127.0.0.1/wp-admin  
+  Đăng nhập bằng tài khoản đã tạo ở Bước 4 → **Products → All Products**
+
+Bạn sẽ thấy 20 sản phẩm hoa đã được import sẵn.
+
+---
+
+## 📱 NẾU BẠN MUỐN XEM TRÊN ĐIỆN THOẠI CÙNG MẠNG
+
+Nếu bạn và bạn tôi cùng mạng WiFi, tôi có thể xem shop của bạn bằng cách:
+
+1. Tìm IP máy bạn:
+   - **Windows:** Mở CMD, gõ `ipconfig` → tìm dòng `IPv4 Address` (ví dụ `192.168.1.10`)
+   - **macOS / Linux:** Mở Terminal, gõ `ifconfig | grep inet`
+2. Tôi vào trình duyệt gõ: `http://192.168.1.10` (thay bằng IP máy bạn)
+
+> ⚠️ Nhớ tắt firewall nếu không vào được.
 
 ## 📦 Sản phẩm được import
 

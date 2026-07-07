@@ -1,0 +1,25 @@
+/* =========================================================
+   THUNG LŨNG HOA — Responsive: all media queries in one file
+   Dễ maintain, không xen kẽ vào module CSS
+   ========================================================= */
+
+@media (max-width:1080px){
+  .hero-grid, .pd-layout, .checkout-layout{grid-template-columns:1fr;}
+  .grid-4{grid-template-columns:repeat(2,1fr);}
+  .grid-3{grid-template-columns:repeat(2,1fr);}
+  .occasion-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .shop-layout{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:640px){
+  .main-nav{display:none;}
+  .grid-4, .grid-3, .why-grid{grid-template-columns:1fr 1fr;}
+  .header-row{padding:14px 20px;}
+  .container, .hero, .occasion-strip, .why-us, .site-footer, .shop-layout, .pd-layout, .checkout-layout{padding-left:20px; padding-right:20px;}
+  .cta-band{margin:0 20px; padding:44px 26px; flex-direction:column; text-align:center;}
+  .footer-grid{grid-template-columns:1fr;}
+  .checkout-steps{gap:22px;}
+  .step-label{display:none;}
+  .form-row{grid-template-columns:1fr;}
+}

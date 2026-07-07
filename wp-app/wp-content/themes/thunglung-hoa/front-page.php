@@ -22,15 +22,15 @@ get_header();
       <div class="hero-stats">
         <div class="stat-chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
-          <span><span class="stat-num">2 giờ</span><span class="stat-label">giao hoa nội thành</span></span>
+          <span><span class="stat-num">2 giờ</span><span class="stat-label">Giao hoa nội thành</span></span>
         </div>
         <div class="stat-chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 3.5 6 7 6 10.5A6 6 0 0 1 6 13.5C6 10 9 6.5 12 3Z"/></svg>
-          <span><span class="stat-num">Mỗi ngày</span><span class="stat-label">hoa nhập tươi từ vườn</span></span>
+          <span><span class="stat-num">Mỗi ngày</span><span class="stat-label">Hoa nhập tươi từ vườn</span></span>
         </div>
         <div class="stat-chip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.6-9.5 9-9.5 9Z"/></svg>
-          <span><span class="stat-num">8.000+</span><span class="stat-label">bó hoa đã gửi trao</span></span>
+          <span><span class="stat-num">8.000+</span><span class="stat-label">Bó hoa đã gửi trao</span></span>
         </div>
       </div>
     </div>
