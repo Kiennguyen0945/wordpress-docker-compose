@@ -1,0 +1,93 @@
+/* =========================================================
+   THUNG LŨNG HOA — Homepage: Hero, Occasion, Best-seller, Why-us
+   ========================================================= */
+
+/* Hero */
+.hero{padding:64px 32px 40px;}
+.hero-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;}
+.hero-art{
+  background:var(--secondary); aspect-ratio:1/1; padding:30px;
+}
+.hero-copy .eyebrow{margin-bottom:18px;}
+.hero-copy h1{margin-bottom:20px;}
+.hero-copy .lede{margin-bottom:32px;}
+.hero-actions{display:flex; gap:16px; margin-bottom:36px; flex-wrap:wrap;}
+.hero-stats{display:flex; gap:28px; flex-wrap:wrap;}
+
+.best-seller{padding-bottom:70px;}
+.stat-chip{display:flex; align-items:center; gap:10px;}
+.stat-chip svg{width:30px; height:30px; color:var(--accent); flex:0 0 auto;}
+.stat-chip .stat-num{font-family:var(--serif); font-weight:600; font-size:1.15rem; display:block;}
+.stat-chip .stat-label{font-size:.8rem; color:#7a6f66;}
+
+/* Occasion strip */
+.occasion-strip{padding:70px 32px;}
+.occasion-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+.occasion-card{
+  position:relative; padding:34px 28px; background:var(--white); border:1px solid var(--line);
+  overflow:hidden; transition:transform .3s ease, box-shadow .3s ease;
+}
+.occasion-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-sm);}
+.occasion-card .occasion-icon{width:52px; height:52px; margin-bottom:20px; color:var(--accent);}
+.occasion-card h3{margin-bottom:8px;}
+.occasion-card p{color:#5b5049; font-size:.92rem; margin-bottom:18px;}
+.occasion-tag{
+  position:absolute; top:24px; right:24px; font-size:.7rem; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--primary);
+}
+
+/* Product cards */
+.grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+.grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:28px;}
+.product-card{
+  display:flex; flex-direction:column;
+  width:100%;
+  transition:transform .25s ease;
+}
+.product-card:hover{transform:translateY(-4px);}
+.product-card:hover .product-name{color:var(--accent);}
+.product-media{
+  background:var(--secondary); aspect-ratio:4/5; margin-bottom:18px; padding:14px;
+  position:relative; width:100%;
+}
+.product-media img{
+  width:100%; height:100%; object-fit:contain;
+  max-width:100%;
+}
+.product-media .badge{
+  position:absolute; top:16px; left:16px; background:var(--accent); color:var(--white);
+  font-size:.68rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  padding:6px 12px; border-radius:100px; z-index:2;
+}
+.product-media .wish{
+  position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%;
+  background:rgba(255,255,255,.85); display:flex; align-items:center; justify-content:center;
+  color:var(--accent); z-index:2; transition:background .2s;
+}
+.product-media .wish:hover{background:var(--white);}
+.product-name{font-family:var(--serif); font-size:1.08rem; font-weight:600; margin-bottom:6px; transition:color .2s;}
+.product-cat{font-size:.85rem; color:#8a7f75; margin-bottom:8px;}
+.product-meta{display:flex; align-items:center; justify-content:space-between;}
+.product-price{font-weight:700; color:var(--accent);}
+.product-price .old{
+  color:#a89b90; font-weight:500; text-decoration:line-through; font-size:.85rem; margin-right:6px;
+}
+.stars{color:var(--primary); font-size:.8rem; letter-spacing:1px;}
+
+/* Why us */
+.why-us{padding:80px 32px; background:var(--white);}
+.why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:32px; margin-top:44px;}
+.why-item{text-align:left;}
+.why-icon{width:46px; height:46px; color:var(--accent); margin-bottom:18px;}
+.why-item h3{font-size:1.08rem; margin-bottom:8px;}
+.why-item p{font-size:.92rem; color:#5b5049;}
+
+/* CTA band */
+.cta-band{
+  margin:0 32px; padding:64px 48px; background:var(--primary); color:var(--white);
+  display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;
+}
+.cta-band h2{color:var(--white); max-width:520px;}
+.cta-band .btn-accent{background:var(--text);}
+.cta-band .btn-accent:hover{background:var(--accent);}

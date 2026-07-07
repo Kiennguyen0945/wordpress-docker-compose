@@ -1,0 +1,33 @@
+/* =========================================================
+   THUNG LŨNG HOA — Checkout
+   ========================================================= */
+
+.checkout-layout.container{display:grid; grid-template-columns:1.6fr 1fr; gap:56px; padding:40px 32px 100px; align-items:start;}
+.checkout-columns{display:grid; grid-template-columns:1.6fr 1fr; gap:40px;}
+
+.checkout-form-col{display:flex; flex-direction:column; gap:0;}
+.checkout-summary-col{position:relative;}
+
+.pay-method{display:flex; align-items:center; gap:12px; padding:14px 16px; border:1px solid var(--line); margin-bottom:12px; cursor:pointer;}
+.pay-method input{accent-color:var(--accent);}
+.pay-method svg{width:22px; height:22px; color:var(--accent);}
+.pay-method.selected{border-color:var(--accent); background:var(--accent-soft);}
+.trust-row{display:flex; gap:16px; justify-content:center; margin-top:20px; color:#8a7f75; font-size:.78rem;}
+.trust-row .t-item{display:flex; align-items:center; gap:6px;}
+.trust-row svg{width:16px; height:16px; color:var(--primary);}
+
+.gift-card-preview{
+  background:var(--secondary); padding:28px; text-align:center; margin-top:8px; position:relative;
+}
+.gift-card-preview .ribbon{position:absolute; top:0; left:50%; transform:translateX(-50%); width:34px; height:26px; background:var(--accent);}
+.gift-card-preview p{font-family:var(--serif); font-style:italic; font-size:1.05rem; line-height:1.6;}
+.gift-card-preview .sign{margin-top:14px; font-size:.85rem; font-weight:600; font-family:var(--sans);}
+
+.summary-sticky{position:sticky; top:100px;}
+.summary-line{display:flex; justify-content:space-between; font-size:.94rem; padding:10px 0; color:#5b5049;}
+.summary-line.total{color:var(--text); font-weight:700; font-size:1.1rem; border-top:1px solid var(--line); margin-top:10px; padding-top:18px;}
+.summary-line.total .val{color:var(--accent); font-family:var(--serif);}
+.promo-row{display:flex; gap:10px; margin:18px 0;}
+.promo-row input{flex:1; padding:12px 14px; border:1px solid var(--line); background:var(--bg);}
+.promo-row button{padding:12px 18px; border:1.5px solid var(--text); font-weight:600; font-size:.85rem;}
+.promo-row button:hover{background:var(--text); color:var(--white);}

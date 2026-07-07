@@ -1,0 +1,61 @@
+/* =========================================================
+   THUNG LŨNG HOA — Cart
+   ========================================================= */
+
+.checkout-steps{display:flex; justify-content:center; gap:60px; padding:34px 32px 10px;}
+.step{display:flex; align-items:center; gap:12px; opacity:.4;}
+.step.active, .step.done{opacity:1;}
+.step-num{
+  width:32px; height:32px; border-radius:50%; border:1.5px solid var(--text); display:flex; align-items:center;
+  justify-content:center; font-size:.85rem; font-weight:700;
+}
+.step.active .step-num, .step.done .step-num{background:var(--accent); color:var(--white); border-color:var(--accent);}
+.step-label{font-size:.88rem; font-weight:600;}
+
+.cart-form{width:100%;}
+.cart-table{width:100%; border-collapse:collapse; margin-bottom:24px;}
+.cart-table th{font-family:var(--sans); font-weight:700; font-size:.85rem; text-transform:uppercase; letter-spacing:.06em; padding:14px 16px; text-align:left; border-bottom:1px solid var(--line);}
+.cart-table td{padding:16px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.cart-item-main{display:flex; gap:16px; align-items:center;}
+.ci-img{width:80px; height:80px; background:var(--secondary); flex:0 0 auto; padding:8px;}
+.ci-img img{width:100%;height:100%;object-fit:contain;}
+.ci-info h4{font-family:var(--serif); font-size:1rem; margin-bottom:4px;}
+.ci-info h4 a:hover{color:var(--accent);}
+.ci-price, .ci-subtotal{font-weight:600; white-space:nowrap;}
+.ci-qty .quantity{display:flex; align-items:center;}
+.ci-qty .qty{width:60px; padding:10px; border:1px solid var(--line); text-align:center;}
+.ci-remove .remove{font-size:1.3rem; color:#8a7f75; font-weight:700; padding:4px 8px;}
+.ci-remove .remove:hover{color:var(--accent);}
+
+.cart-actions td{padding:16px;}
+.cart-actions-row{display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+.coupon{display:flex; gap:8px;}
+.coupon input{padding:12px 16px; border:1px solid var(--line); background:var(--bg); min-width:180px;}
+
+/* Summary panel */
+.panel{background:var(--white); border:1px solid var(--line);}
+.panel + .panel{margin-top:28px;}
+.panel-body{padding:28px;}
+.panel-body h3{margin-bottom:20px;}
+.panel-row{display:flex; justify-content:space-between; font-size:.94rem; padding:10px 0; color:#5b5049; border-bottom:1px solid var(--line);}
+.panel-row:last-child{border-bottom:none;}
+.panel-total{font-weight:700; font-size:1.08rem; color:var(--text); border-top:1px solid var(--line); margin-top:10px; padding-top:18px;}
+.panel-total span:last-child{color:var(--accent); font-family:var(--serif);}
+.panel-discount{color:var(--accent);}
+.panel-actions{display:flex; flex-direction:column; gap:12px; margin-top:24px;}
+.panel-sticky{position:sticky; top:100px;}
+
+/* Old cart */
+.cart-item{display:flex; gap:18px; padding:20px 0; border-bottom:1px solid var(--line);}
+.cart-item:last-child{border-bottom:none;}
+.cart-item-media{width:92px; height:92px; background:var(--secondary); flex:0 0 auto; padding:10px;}
+.cart-item-info{flex:1; display:flex; flex-direction:column;}
+.cart-item-top{display:flex; justify-content:space-between; gap:12px;}
+.cart-item-name{font-family:var(--serif); font-weight:600;}
+.cart-item-size{font-size:.82rem; color:#8a7f75; margin-top:4px;}
+.cart-item-bottom{display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:10px;}
+.remove-btn{font-size:.82rem; color:#8a7f75; text-decoration:underline; text-underline-offset:3px;}
+.remove-btn:hover{color:var(--accent);}
+.mini-stepper{display:flex; align-items:center; border:1px solid var(--line); border-radius:100px;}
+.mini-stepper button{width:30px; height:30px; font-size:.95rem;}
+.mini-stepper span{width:28px; text-align:center; font-size:.9rem; font-weight:600;}

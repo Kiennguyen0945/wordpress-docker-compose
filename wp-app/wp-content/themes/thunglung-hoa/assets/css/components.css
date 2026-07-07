@@ -1,0 +1,26 @@
+/* =========================================================
+   THUNG LŨNG HOA — Components: blob shapes, wave, chips, breadcrumb
+   ========================================================= */
+
+/* Blob shapes */
+.blob{position:relative;}
+.blob-a{border-radius:var(--radius-blob-a);}
+.blob-b{border-radius:var(--radius-blob-b);}
+.blob-c{border-radius:var(--radius-blob-c);}
+.blob-frame{
+  overflow:hidden; display:flex; align-items:center; justify-content:center;
+  transition:border-radius .6s ease, transform .4s ease;
+}
+.blob-frame:hover{transform:translateY(-4px);}
+.blob-frame img{border-radius:inherit;}
+
+/* Wave divider */
+.wave-divider{width:100%; height:44px; display:block; color:var(--secondary);}
+.wave-divider path{fill:currentColor;}
+
+/* Breadcrumb */
+.breadcrumb{padding:22px 32px 0; font-size:.85rem; color:#8a7f75; display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+.breadcrumb a:hover{color:var(--accent);}
+.breadcrumb .sep{opacity:.5;}
+.breadcrumb .current{color:var(--text); font-weight:600;}
+.woocommerce-breadcrumb{font-size:.85rem; color:#8a7f75; display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:22px 32px 0;}
