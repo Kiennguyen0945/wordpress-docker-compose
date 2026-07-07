@@ -205,40 +205,38 @@ get_header();
           'orderby'  => 'meta_value_num',
           'order'    => 'DESC',
           'limit'    => 4,
+          'status'   => 'publish',
+          'visibility' => 'visible',
       ]);
 
       if (empty($best_sellers)) {
-          // Fallback: show latest products
-          $best_sellers = wc_get_products(['limit' => 4]);
+          $best_sellers = wc_get_products(['limit' => 4, 'status' => 'publish', 'visibility' => 'visible']);
       }
 
-      foreach ($best_sellers as $product) :
-          setup_postdata($product->get_id());
-          $pid = $product->get_id();
+      foreach ($best_sellers as $bs_product) :
+          $pid  = $bs_product->get_id();
+          $link = get_permalink($pid);
       ?>
-        <a href="<?php echo esc_url(get_permalink($pid)); ?>" class="product-card">
+        <a href="<?php echo esc_url($link); ?>" class="product-card">
           <div class="product-media blob blob-a blob-frame">
-            <?php if ($product->is_on_sale()) : ?>
+            <?php if ($bs_product->is_on_sale()) : ?>
               <span class="badge">Bán chạy</span>
             <?php endif; ?>
             <span class="wish" aria-label="Yêu thích">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.6-9.5 9-9.5 9Z"/></svg>
             </span>
-            <?php echo $product->get_image('woocommerce_thumbnail', ['width' => '100%', 'height' => 'auto', 'style' => 'object-fit:contain;width:100%;height:100%;']); ?>
+            <?php echo $bs_product->get_image('woocommerce_thumbnail', ['style' => 'width:100%;height:100%;object-fit:contain;']); ?>
           </div>
-          <div class="product-name"><?php echo esc_html($product->get_name()); ?></div>
-          <p style="font-size:.85rem; color:#8a7f75; margin-bottom:8px;"><?php echo wc_get_product_category_list($pid, ', '); ?></p>
+          <div class="product-name"><?php echo esc_html($bs_product->get_name()); ?></div>
+          <p class="product-cat"><?php echo wp_strip_all_tags(wc_get_product_category_list($pid, ', ')); ?></p>
           <div class="product-meta">
-            <span class="product-price"><?php echo $product->get_price_html(); ?></span>
-            <?php if ($rating = $product->get_average_rating()) : ?>
-              <span class="stars"><?php echo str_repeat('★', round($rating)) . str_repeat('☆', 5 - round($rating)); ?></span>
+            <span class="product-price"><?php echo $bs_product->get_price_html(); ?></span>
+            <?php if ($bs_product->get_average_rating()) : ?>
+              <span class="stars"><?php echo str_repeat('★', round($bs_product->get_average_rating())) . str_repeat('☆', 5 - round($bs_product->get_average_rating())); ?></span>
             <?php endif; ?>
           </div>
         </a>
-      <?php
-      endforeach;
-      wp_reset_postdata();
-      ?>
+      <?php endforeach; ?>
     </div>
   </div>
 </section>

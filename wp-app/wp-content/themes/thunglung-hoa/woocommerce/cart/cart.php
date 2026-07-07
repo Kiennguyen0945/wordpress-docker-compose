@@ -12,10 +12,9 @@ get_header('shop');
 do_action('woocommerce_before_cart');
 ?>
 
-<section class="checkout-layout">
-  <div class="container">
+<section class="checkout-layout container">
 
-    <div class="section-head">
+    <div class="section-head" style="grid-column:1/-1;">
       <span class="eyebrow">Giỏ hàng</span>
       <h1>Giỏ hàng của bạn</h1>
     </div>
@@ -171,7 +170,6 @@ do_action('woocommerce_before_cart');
 
     <?php endif; ?>
 
-  </div>
 </section>
 
 <?php

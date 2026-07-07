@@ -36,16 +36,20 @@ if (post_password_required()) {
       <?php
       $attachment_ids = $product->get_gallery_image_ids();
       if ($attachment_ids) {
+          // First thumb: main product image
+          echo '<div class="pd-thumb active">';
+          echo wp_get_attachment_image($product->get_image_id(), 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:contain;']);
+          echo '</div>';
           foreach ($attachment_ids as $attachment_id) {
               echo '<div class="pd-thumb">';
               echo wp_get_attachment_image($attachment_id, 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:contain;']);
               echo '</div>';
           }
-      } else {
-          // Placeholder thumbs
-          for ($i = 0; $i < 4; $i++) {
-              echo '<div class="pd-thumb' . ($i === 0 ? ' active' : '') . '"><svg viewBox="0 0 60 60" width="100%"><rect x="12" y="14" width="36" height="34" class="fill-secondary" stroke="var(--text)" stroke-width="1" rx="6"/></svg></div>';
-          }
+      } elseif ($product->get_image_id()) {
+          // Only main image, no gallery extras
+          echo '<div class="pd-thumb active">';
+          echo wp_get_attachment_image($product->get_image_id(), 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:contain;']);
+          echo '</div>';
       }
       ?>
     </div>
@@ -66,12 +70,12 @@ if (post_password_required()) {
     </div>
 
     <div class="pd-desc">
-      <?php echo apply_filters('woocommerce_short_description', $product->get_short_description() ?: $product->get_description()); ?>
+      <?php echo wpautop(wp_strip_all_tags($product->get_short_description() ?: $product->get_description())); ?>
     </div>
 
     <?php
-    // Add to cart area
-    do_action('woocommerce_single_product_summary');
+    // Add to cart — only the form, not full summary (title/price/desc are rendered above)
+    woocommerce_template_single_add_to_cart();
     ?>
 
     <div class="delivery-strip">
@@ -92,7 +96,7 @@ if (post_password_required()) {
 </div>
 
 <?php
-// Tabs
+// Tabs — full-width section below product detail
 woocommerce_output_product_data_tabs();
 
 // Related products

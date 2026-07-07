@@ -19,10 +19,9 @@ if ($checkout->is_registration_enabled() && $checkout->is_registration_required(
 }
 ?>
 
-<section class="checkout-layout">
-  <div class="container">
+<section class="checkout-layout container">
 
-    <div class="section-head">
+    <div class="section-head" style="grid-column:1/-1;">
       <span class="eyebrow">Thanh toán</span>
       <h1>Thông tin nhận hoa</h1>
     </div>
@@ -103,7 +102,6 @@ if ($checkout->is_registration_enabled() && $checkout->is_registration_required(
 
     </form>
 
-  </div>
 </section>
 
 <?php
