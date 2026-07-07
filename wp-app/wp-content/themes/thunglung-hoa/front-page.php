@@ -1,6 +1,6 @@
 <?php
 /**
- * Front Page — Homepage of Thung Lũng Hoa
+ * Front Page — Homepage of Royal Flower Studio
  *
  * @package ThungLungHoa
  */
@@ -14,7 +14,7 @@ get_header();
     <div class="hero-copy">
       <span class="eyebrow">Hoa tươi mỗi sớm mai</span>
       <h1>Gửi trọn yêu thương,<br>qua từng <span class="italic">cánh hoa</span></h1>
-      <p class="lede">Thung Lũng Hoa tuyển hoa mỗi sáng và cắm theo từng câu chuyện riêng của bạn — từ lời chúc mừng rộn rã đến lời an ủi lặng thầm, đều được gói ghém bằng sự tinh tế.</p>
+      <p class="lede">Royal Flower Studio tuyển hoa mỗi sáng và cắm theo từng câu chuyện riêng của bạn — từ lời chúc mừng rộn rã đến lời an ủi lặng thầm, đều được gói ghém bằng sự tinh tế.</p>
       <div class="hero-actions">
         <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>" class="btn btn-accent btn-lg">Đặt hoa ngay</a>
         <a href="<?php echo esc_url(get_permalink(wc_get_page_id('shop'))); ?>" class="btn btn-outline btn-lg">Xem bộ sưu tập</a>

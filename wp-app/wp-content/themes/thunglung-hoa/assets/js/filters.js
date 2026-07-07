@@ -1,5 +1,5 @@
 /**
- * Thung Lũng Hoa — Product Filters (AJAX)
+ * Royal Flower Studio — Product Filters (AJAX)
  * Người phụ trách: [Người B]
  */
 (function() {

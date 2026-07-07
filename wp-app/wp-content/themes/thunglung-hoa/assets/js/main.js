@@ -1,5 +1,5 @@
 /**
- * Thung Lũng Hoa — Main JavaScript
+ * Royal Flower Studio — Main JavaScript
  * Global interactions: header scroll, search toggle, mobile menu.
  */
 (function() {
@@ -18,5 +18,5 @@
   }
 
   // Mobile menu toggle (nếu có)
-  console.log('Thung Lũng Hoa — JS loaded');
+  console.log('Royal Flower Studio — JS loaded');
 })();

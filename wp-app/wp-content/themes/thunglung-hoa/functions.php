@@ -1,6 +1,6 @@
 <?php
 /**
- * Thung Lũng Hoa Theme Functions
+ * Royal Flower Studio Theme Functions
  *
  * Đây là file index — chỉ require các module trong inc/.
  * Mỗi người sửa file module riêng của mình, không ai sửa file này.
