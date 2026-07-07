@@ -20,25 +20,34 @@ get_header('shop');
 
 <?php
 if (woocommerce_product_loop()) {
+    // Remove default result count & ordering from before_shop_loop — we render them in our custom toolbar below
+    remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+    remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+
     do_action('woocommerce_before_shop_loop');
+    ?>
 
-    echo '<div class="shop-toolbar">';
-    woocommerce_result_count();
-    woocommerce_catalog_ordering();
-    echo '</div>';
+    <div class="container">
+      <div class="shop-toolbar">
+        <?php woocommerce_result_count(); ?>
+        <?php woocommerce_catalog_ordering(); ?>
+      </div>
 
-    woocommerce_product_loop_start();
+      <?php
+      woocommerce_product_loop_start();
 
-    if (wc_get_loop_prop('total')) {
-        while (have_posts()) {
-            the_post();
-            do_action('woocommerce_shop_loop');
-            wc_get_template_part('content', 'product');
-        }
-    }
+      if (wc_get_loop_prop('total')) {
+          while (have_posts()) {
+              the_post();
+              wc_get_template_part('content', 'product');
+          }
+      }
 
-    woocommerce_product_loop_end();
+      woocommerce_product_loop_end();
+      ?>
+    </div>
 
+    <?php
     do_action('woocommerce_after_shop_loop');
 } else {
     do_action('woocommerce_no_products_found');
