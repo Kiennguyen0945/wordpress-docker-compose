@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagination - styled like Thung Lũng Hoa
+ * Pagination - styled like Royal Flower Studio
  *
  * @package ThungLungHoa
  */

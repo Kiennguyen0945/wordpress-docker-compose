@@ -1,4 +1,4 @@
-# 🌸 Hướng Dẫn Collaborative cho Theme Thung Lũng Hoa
+# 🌸 Hướng Dẫn Collaborative cho Theme Royal Flower Studio
 
 > Dành cho 2 người cùng code WordPress theme mà không sợ conflict!
 
@@ -119,7 +119,7 @@ echo "wp-data/
 # Commit lần đầu
 git init
 git add -A
-git commit -m "Initial: theme Thung Lung Hoa modular structure"
+git commit -m "Initial: theme Royal Flower Studio modular structure"
 ```
 
 ### Mỗi ngày — Quy trình chuẩn

@@ -1,5 +1,5 @@
 /**
- * Thung Lũng Hoa — Checkout interactions
+ * Royal Flower Studio — Checkout interactions
  * Payment method selection, promo code, etc.
  */
 (function() {
