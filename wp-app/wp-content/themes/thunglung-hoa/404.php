@@ -5,6 +5,38 @@
  * @package ThungLungHoa
  */
 
+// Check if this is auth page
+$slug = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Check if URL contains dang-nhap or dang-ky
+if (strpos($request_uri, 'dang-nhap') !== false) {
+    get_header();
+    ?>
+    <div style="min-height: calc(100vh - 140px); display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="width: 100%; max-width: 480px;">
+            <?php get_template_part('template-parts/user/login'); ?>
+        </div>
+    </div>
+    <?php
+    get_footer();
+    return;
+}
+
+if (strpos($request_uri, 'dang-ky') !== false) {
+    get_header();
+    ?>
+    <div style="min-height: calc(100vh - 140px); display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="width: 100%; max-width: 480px;">
+            <?php get_template_part('template-parts/user/register'); ?>
+        </div>
+    </div>
+    <?php
+    get_footer();
+    return;
+}
+
+// Normal 404
 get_header();
 ?>
 

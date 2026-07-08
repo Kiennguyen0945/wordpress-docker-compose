@@ -27,3 +27,31 @@
   font-size:.62rem; font-weight:700; width:17px; height:17px; border-radius:50%;
   display:flex; align-items:center; justify-content:center;
 }
+.account-menu{position:relative; display:flex; align-items:center;}
+.account-toggle[aria-expanded="true"]{color:var(--accent);}
+.account-popover{
+  position:absolute; top:calc(100% + 16px); right:0; z-index:70;
+  min-width:230px; padding:10px; background:var(--white); border:1px solid var(--line);
+  box-shadow:var(--shadow); border-radius:8px;
+}
+.account-popover::before{
+  content:''; position:absolute; top:-7px; right:8px; width:12px; height:12px;
+  background:var(--white); border-left:1px solid var(--line); border-top:1px solid var(--line);
+  transform:rotate(45deg);
+}
+.account-popover[hidden]{display:none;}
+.account-popover__header{
+  padding:8px 10px 12px; margin-bottom:6px; border-bottom:1px solid var(--line);
+}
+.account-popover__header strong{
+  display:block; font-size:.92rem; line-height:1.35;
+}
+.account-popover__eyebrow{
+  display:block; margin-bottom:2px; color:var(--accent); font-size:.72rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.08em;
+}
+.account-popover a{
+  display:flex; align-items:center; min-height:40px; padding:9px 10px; border-radius:6px;
+  font-size:.9rem; font-weight:600; transition:background-color .2s ease, color .2s ease;
+}
+.account-popover a:hover{background:var(--accent-soft); color:var(--accent);}

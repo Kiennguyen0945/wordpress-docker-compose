@@ -38,8 +38,11 @@ function tlh_enqueue() {
     }
 
     // Localize for AJAX
-    wp_localize_script('tlh-filters', 'tlh_ajax', [
+    $ajax_data = [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('tlh_ajax_nonce'),
-    ]);
+    ];
+
+    wp_localize_script('tlh-main', 'tlh_ajax', $ajax_data);
+    wp_localize_script('tlh-filters', 'tlh_ajax', $ajax_data);
 }

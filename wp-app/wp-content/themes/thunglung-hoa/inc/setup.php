@@ -32,3 +32,53 @@ function tlh_setup() {
         'footer'  => __('Menu chân trang', 'thunglung-hoa'),
     ]);
 }
+
+// Create auth pages on theme activation/init
+add_action('wp_loaded', 'tlh_create_auth_pages_init');
+function tlh_create_auth_pages_init() {
+    if (!is_admin()) {
+        return;
+    }
+
+    $pages = [
+        [
+            'post_title'   => 'Đăng Nhập',
+            'post_name'    => 'dang-nhap',
+            'post_content' => '[tlh_login_page]',
+        ],
+        [
+            'post_title'   => 'Đăng Ký',
+            'post_name'    => 'dang-ky',
+            'post_content' => '[tlh_register_page]',
+        ],
+        [
+            'post_title'   => 'Hồ Sơ',
+            'post_name'    => 'ho-so',
+            'post_content' => '[tlh_user_profile]',
+        ],
+    ];
+
+    foreach ($pages as $page) {
+        $exists = get_page_by_path($page['post_name']);
+        if (!$exists) {
+            wp_insert_post([
+                'post_title'   => $page['post_title'],
+                'post_name'    => $page['post_name'],
+                'post_content' => $page['post_content'],
+                'post_type'    => 'page',
+                'post_status'  => 'publish',
+            ]);
+        }
+    }
+
+    flush_rewrite_rules();
+}
+
+// Custom template for auth pages
+add_filter('template_include', 'tlh_template_include_auth_pages');
+function tlh_template_include_auth_pages($template) {
+    if (is_page('dang-nhap') || is_page('dang-ky')) {
+        return get_template_directory() . '/page.php';
+    }
+    return $template;
+}
