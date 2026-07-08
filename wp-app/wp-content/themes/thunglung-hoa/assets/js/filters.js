@@ -13,7 +13,7 @@
 
   /* ========== DOM refs ========== */
   var toolbar   = document.querySelector('.shop-toolbar');
-  var grid      = document.querySelector('ul.products');
+  var grid      = document.querySelector('.grid-3, .grid-4, .grid-2');
   var paginationNav = document.querySelector('.pagination');
 
   if (!toolbar || !grid) return;
@@ -142,18 +142,32 @@
     e.preventDefault();
 
     var href  = link.getAttribute('href');
-    var match = href.match(/[?&]page=(\d+)/);
+    var pageNum = null;
 
+    // Thử format #?page=N (AJAX-loaded)
+    var match = href.match(/[?&]page=(\d+)/);
     if (match) {
-      currentPage = parseInt(match[1], 10);
-    } else if (link.classList.contains('next')) {
-      currentPage += 1;
-    } else if (link.classList.contains('prev')) {
-      currentPage = Math.max(1, currentPage - 1);
-    } else {
-      currentPage = 1;
+      pageNum = parseInt(match[1], 10);
     }
 
-    fetchProducts();
+    // Thử format /page/N/ (WordPress chuẩn)
+    if (!pageNum) {
+      match = href.match(/\/page\/(\d+)/);
+      if (match) pageNum = parseInt(match[1], 10);
+    }
+
+    // Thử class next/prev
+    if (!pageNum) {
+      if (link.classList.contains('next')) {
+        pageNum = currentPage + 1;
+      } else if (link.classList.contains('prev')) {
+        pageNum = Math.max(1, currentPage - 1);
+      }
+    }
+
+    if (pageNum) {
+      currentPage = pageNum;
+      fetchProducts();
+    }
   });
 })();
