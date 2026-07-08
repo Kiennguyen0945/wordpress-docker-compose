@@ -241,7 +241,7 @@
     bindAuthForm(form, form.dataset.authAction);
   });
 
-  bindAjaxForm(document.getElementById('tlh-profile-form'), 'tlh_update_profile');
+  bindAjaxForm(document.getElementById('tlh-profile-form'), 'tlh_update_profile', window.location.href);
   bindAjaxForm(document.getElementById('tlh-password-form'), 'tlh_update_password');
 
   // Mobile menu toggle (nếu có)
