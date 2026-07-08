@@ -5,10 +5,13 @@
 .woocommerce-message, .woocommerce-info, .woocommerce-error{
   padding:16px 24px; margin:0 32px 24px; border-radius:8px; font-size:.9rem;
 }
-.woocommerce-message{background:#e8f0e4; color:#3c5a3c; border-left:4px solid #6a9a6a;}
+.woocommerce-message{background:#e8f0e4; color:#3c5a3c; border-left:4px solid #6a9a6a; display:flex; align-items:center; gap:10px;}
 .woocommerce-info{background:var(--accent-soft); color:var(--accent); border-left:4px solid var(--accent);}
 .woocommerce-error{background:#fbeaea; color:#8a3c3c; border-left:4px solid #c75a5a;}
-.woocommerce-message .button, .woocommerce-info .button{font-weight:600; margin-left:16px;}
+.woocommerce-message .button, .woocommerce-info .button{font-weight:600; margin-left:auto; flex-shrink:0;}
+.woocommerce-message .msg-icon{flex-shrink:0; display:flex; align-items:center;}
+.woocommerce-message .msg-icon svg{display:block; color:#6a9a6a;}
+.woocommerce-message .msg-text{flex:1;}
 .woocommerce .quantity .qty{width:60px; padding:10px; border:1px solid var(--line); text-align:center;}
 .woocommerce form .form-row .input-text, .woocommerce-page form .form-row .input-text{padding:13px 16px; border:1px solid var(--line); background:var(--bg);}
 .woocommerce form .form-row textarea{height:100px;}

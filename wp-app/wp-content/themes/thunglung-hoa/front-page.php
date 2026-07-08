@@ -225,7 +225,7 @@ get_header();
             <span class="wish" aria-label="Yêu thích">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 5c-2.5 4.6-9.5 9-9.5 9Z"/></svg>
             </span>
-            <?php echo $bs_product->get_image('woocommerce_thumbnail', ['style' => 'width:100%;height:100%;object-fit:contain;']); ?>
+            <?php echo $bs_product->get_image('woocommerce_thumbnail', ['style' => 'width:100%;height:100%;object-fit:cover;']); ?>
           </div>
           <div class="product-name"><?php echo esc_html($bs_product->get_name()); ?></div>
           <p class="product-cat"><?php echo wp_strip_all_tags(wc_get_product_category_list($pid, ', ')); ?></p>

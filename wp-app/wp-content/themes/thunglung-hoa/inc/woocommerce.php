@@ -87,3 +87,16 @@ function tlh_breadcrumb_defaults() {
  */
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 add_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 25);
+
+/**
+ * Fix: Replace fancy Unicode quotes with ASCII quotes in add-to-cart message
+ * to prevent UTF-8 multi-byte character truncation causing text to be cut off.
+ */
+add_filter('wc_add_to_cart_message_html', 'tlh_fix_add_to_cart_quotes', 10, 3);
+function tlh_fix_add_to_cart_quotes($message, $products, $show_qty) {
+    $message = str_replace("\xe2\x80\x9c", '"', $message);
+    $message = str_replace("\xe2\x80\x9d", '"', $message);
+    $message = str_replace('&ldquo;', '"', $message);
+    $message = str_replace('&rdquo;', '"', $message);
+    return $message;
+}

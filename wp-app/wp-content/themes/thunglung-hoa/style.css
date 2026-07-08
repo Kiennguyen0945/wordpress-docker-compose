@@ -220,7 +220,15 @@ WC tested up to: 10.9
 /* Add-to-cart form */
 .add-to-cart-form{margin-bottom:24px;}
 .add-to-cart-form .qty-row{display:flex; gap:14px; align-items:center;}
-.qty-input{width:48px; border:none; text-align:center; font-weight:600; font-size:1rem; background:transparent;}
+.qty-input,.qty-stepper .qty{width:48px; border:none; text-align:center; font-weight:600; font-size:1rem; background:transparent;}
+.qty-stepper .quantity{margin:0;}
+/* Hide native number input spinners */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button,
+.qty-stepper .qty::-webkit-outer-spin-button,
+.qty-stepper .qty::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.qty-input[type="number"],
+.qty-stepper .qty[type="number"]{-moz-appearance:textfield;appearance:textfield;}
 .variations{margin-bottom:20px;}
 .var-row{display:flex; flex-direction:column; gap:6px; margin-bottom:12px;}
 .var-row label{font-weight:600; font-size:.9rem;}
