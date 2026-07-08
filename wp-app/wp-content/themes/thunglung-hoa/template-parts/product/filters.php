@@ -64,5 +64,4 @@ $filter_groups = array(
   <option value="date-desc">Mới nhất</option>
   <option value="price-asc">Giá: Thấp đến cao</option>
   <option value="price-desc">Giá: Cao đến thấp</option>
-  <option value="popularity">Phổ biến nhất</option>
 </select>

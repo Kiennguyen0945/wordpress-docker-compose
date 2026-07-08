@@ -24,7 +24,7 @@ if (post_password_required()) {
   <div class="pd-gallery">
     <div class="pd-gallery-main blob blob-a blob-frame">
       <?php if ($product->get_image_id()) : ?>
-        <?php echo wp_get_attachment_image($product->get_image_id(), 'woocommerce_single', false, ['style' => 'width:100%;height:100%;object-fit:contain;']); ?>
+        <?php echo wp_get_attachment_image($product->get_image_id(), 'woocommerce_single', false, ['style' => 'width:100%;height:100%;object-fit:cover;']); ?>
       <?php else : ?>
         <svg viewBox="0 0 300 300" width="60%">
           <rect x="50" y="50" width="200" height="200" class="fill-secondary" stroke="var(--line)" stroke-width="2" rx="20"/>
@@ -38,17 +38,17 @@ if (post_password_required()) {
       if ($attachment_ids) {
           // First thumb: main product image
           echo '<div class="pd-thumb active">';
-          echo wp_get_attachment_image($product->get_image_id(), 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:contain;']);
+          echo wp_get_attachment_image($product->get_image_id(), 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:cover;']);
           echo '</div>';
           foreach ($attachment_ids as $attachment_id) {
               echo '<div class="pd-thumb">';
-              echo wp_get_attachment_image($attachment_id, 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:contain;']);
+              echo wp_get_attachment_image($attachment_id, 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:cover;']);
               echo '</div>';
           }
       } elseif ($product->get_image_id()) {
           // Only main image, no gallery extras
           echo '<div class="pd-thumb active">';
-          echo wp_get_attachment_image($product->get_image_id(), 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:contain;']);
+          echo wp_get_attachment_image($product->get_image_id(), 'thumbnail', false, ['style' => 'width:100%;height:100%;object-fit:cover;']);
           echo '</div>';
       }
       ?>

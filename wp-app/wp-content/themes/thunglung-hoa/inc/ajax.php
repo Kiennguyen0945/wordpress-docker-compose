@@ -50,15 +50,11 @@ function tlh_filter_products() {
         'meta_query'     => array(),
     );
 
-    // Orderby mapping — hỗ trợ date, price, popularity
+    // Orderby mapping — hỗ trợ date, price
     switch ( $orderby ) {
         case 'price':
             $args['orderby']  = 'meta_value_num';
             $args['meta_key'] = '_price';
-            break;
-        case 'popularity':
-            $args['orderby']  = 'meta_value_num';
-            $args['meta_key'] = 'total_sales';
             break;
         default:
             $args['orderby'] = 'date';

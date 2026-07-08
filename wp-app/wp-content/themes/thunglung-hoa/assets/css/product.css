@@ -3,9 +3,9 @@
    ========================================================= */
 
 .pd-layout{display:grid; grid-template-columns:1fr 1fr; gap:64px; padding:20px 32px 80px;}
-.pd-gallery-main{background:var(--secondary); aspect-ratio:1/1; padding:40px; margin-bottom:16px;}
+.pd-gallery-main{background:var(--secondary); aspect-ratio:1/1; margin-bottom:16px;}
 .pd-thumbs{display:flex; gap:14px;}
-.pd-thumb{width:84px; height:84px; background:var(--secondary); padding:12px; border:2px solid transparent; transition:border-color .2s;}
+.pd-thumb{width:84px; height:84px; background:var(--secondary); border-radius:8px; overflow:hidden; border:2px solid transparent; transition:border-color .2s;}
 .pd-thumb.active, .pd-thumb:hover{border-color:var(--accent);}
 .pd-info .stars-row{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
 .pd-info .stars-row span{font-size:.85rem; color:#8a7f75;}

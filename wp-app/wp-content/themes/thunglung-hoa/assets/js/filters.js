@@ -83,7 +83,6 @@
     switch (sortValue) {
       case 'price-asc':  orderby = 'price'; order = 'ASC';  break;
       case 'price-desc': orderby = 'price'; order = 'DESC'; break;
-      case 'popularity': orderby = 'popularity'; order = 'DESC'; break;
     }
 
     var fd = new FormData();
