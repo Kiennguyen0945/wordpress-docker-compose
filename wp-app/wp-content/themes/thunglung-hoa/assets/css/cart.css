@@ -46,17 +46,71 @@
 .panel-actions{display:flex; flex-direction:column; gap:12px; margin-top:24px;}
 .panel-sticky{position:sticky; top:100px;}
 
-/* Old cart */
-.cart-item{display:flex; gap:18px; padding:20px 0; border-bottom:1px solid var(--line);}
-.cart-item:last-child{border-bottom:none;}
-.cart-item-media{width:92px; height:92px; background:var(--secondary); flex:0 0 auto; padding:10px;}
-.cart-item-info{flex:1; display:flex; flex-direction:column;}
-.cart-item-top{display:flex; justify-content:space-between; gap:12px;}
-.cart-item-name{font-family:var(--serif); font-weight:600;}
-.cart-item-size{font-size:.82rem; color:#8a7f75; margin-top:4px;}
-.cart-item-bottom{display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:10px;}
-.remove-btn{font-size:.82rem; color:#8a7f75; text-decoration:underline; text-underline-offset:3px;}
-.remove-btn:hover{color:var(--accent);}
-.mini-stepper{display:flex; align-items:center; border:1px solid var(--line); border-radius:100px;}
-.mini-stepper button{width:30px; height:30px; font-size:.95rem;}
-.mini-stepper span{width:28px; text-align:center; font-size:.9rem; font-weight:600;}
+/* =========================================================
+   Compact 2‑column layout (cart có sản phẩm)
+   ========================================================= */
+.cart-layout{display:block;}
+
+/* Override: .cart-item giờ là <tr> trong bảng */
+.cart-table--compact th{padding:14px 0;}
+.cart-table--compact td{padding:20px 0;}
+.th-total{text-align:right !important;}
+
+/* Product cell — full width remaining */
+.ci-product{width:auto;}
+.cart-item-main{display:flex; gap:16px; align-items:flex-start;}
+.ci-info{flex:1; min-width:0;}
+.ci-info h4{font-family:var(--serif); font-size:1rem; margin-bottom:2px;}
+.ci-info h4 a{color:var(--text);}
+.ci-info h4 a:hover{color:var(--accent);}
+.ci-unit-price{font-size:.88rem; color:#8a7f75; margin-bottom:4px;}
+.ci-desc{font-size:.82rem; color:#8a7f75; margin:4px 0 8px; line-height:1.45;}
+
+/* Actions row — stepper + remove */
+.ci-actions-row{display:flex; align-items:center; gap:12px; margin-top:8px; flex-wrap:wrap;}
+
+/* Remove icon */
+.remove-btn{font-size:1.1rem; color:#8a7f75; opacity:.7; transition:opacity .2s; text-decoration:none; display:inline-flex;}
+.remove-btn:hover{opacity:1; color:var(--accent);}
+
+/* Total cell */
+.ci-total{text-align:right; font-weight:600; white-space:nowrap; vertical-align:middle;}
+
+/* Update button row below table */
+.cart-form-foot{display:flex; justify-content:flex-end; gap:12px; margin-top:16px;}
+
+/* Coupon accordion in panel */
+.panel-coupon{border-bottom:1px solid var(--line); margin-bottom:12px; padding-bottom:12px;}
+.coupon-toggle{display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:8px 0; font-size:.9rem; color:#5b5049; user-select:none;}
+.coupon-toggle:hover{color:var(--text);}
+.coupon-arrow{transition:transform .2s;}
+.coupon-form{display:flex; gap:8px; margin-top:8px;}
+.coupon-form input{flex:1; padding:10px 14px; border:1px solid var(--line); border-radius:100px; background:var(--bg); font-size:.9rem; min-width:0;}
+.coupon-form .btn-accent{flex-shrink:0;}
+
+/* Button variants */
+.btn-dark{background:#1a1a1a; color:var(--white);}
+.btn-dark:hover{background:#333;}
+.btn-sm{padding:10px 20px; font-size:.85rem;}
+
+/* =========================================================
+   Empty Cart State
+   ========================================================= */
+.empty-cart{text-align:center; padding:60px 0; grid-column:1/-1;}
+.empty-cart-icon{
+  display:flex; align-items:center; justify-content:center;
+  width:100px; height:100px; border-radius:50%;
+  background:var(--secondary); margin:0 auto 28px;
+  font-size:3rem; line-height:1;
+}
+.empty-cart-title{font-size:clamp(1.6rem,2.5vw,2.2rem); margin-bottom:12px;}
+.empty-cart-desc{color:#5b5049; font-size:1rem; max-width:400px; margin:0 auto 28px;}
+.empty-cart .btn-accent{margin-bottom:0;}
+.empty-cart-divider{
+  font-size:1.6rem; letter-spacing:8px; color:var(--primary);
+  margin:48px 0 40px; opacity:.6;
+}
+.empty-cart-suggestions{padding-top:10px;}
+.empty-cart-suggestions .section-head{margin-bottom:36px;}
+.empty-cart-suggestions .grid-4{text-align:left;}
+
