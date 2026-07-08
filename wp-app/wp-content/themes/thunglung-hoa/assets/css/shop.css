@@ -13,8 +13,9 @@
 .color-dots{display:flex; gap:10px;}
 .color-dot{width:26px; height:26px; border-radius:50%; border:2px solid var(--white); box-shadow:0 0 0 1px var(--line); cursor:pointer;}
 .color-dot:hover{box-shadow:0 0 0 2px var(--accent);}
-.shop-toolbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; padding-top:10px; flex-wrap:wrap; gap:16px;}
+.shop-toolbar{display:flex; align-items:center; margin-bottom:30px; padding-top:10px; flex-wrap:wrap; gap:16px;}
 .shop-toolbar .count, .shop-toolbar .woocommerce-result-count{color:#5b5049; font-size:.92rem;}
+.shop-toolbar .tlh-sort-select{margin-left:auto;}
 .shop-toolbar .woocommerce-ordering select{padding:10px 14px; border:1px solid var(--line); background:var(--white); font-size:.9rem; font-family:var(--sans); color:var(--text);}
 .shop-toolbar .woocommerce-ordering{position:relative;}
 .shop-toolbar .woocommerce-ordering::after{
@@ -43,3 +44,36 @@ ul.products.columns-4{grid-template-columns:repeat(4,1fr);}
 ul.products.columns-2{grid-template-columns:repeat(2,1fr);}
 ul.products li.product{width:100%; margin:0; padding:0; float:none; clear:none;}
 ul.products li.product .button{display:none;}
+
+/* ─── Filter Bar (shop-toolbar nằm ngang) ────────────────── */
+.tlh-filter-count{color:#8a8a8a; font-size:.88rem; white-space:nowrap;}
+.tlh-filter-group{display:flex; gap:12px; align-items:center;}
+.tlh-filter-dropdown{position:relative;}
+.tlh-filter-btn{
+  background:#e8d9d0; border:none; border-radius:9999px;
+  padding:8px 18px; font-size:14px; cursor:pointer;
+  display:flex; align-items:center; gap:6px; white-space:nowrap;
+  transition:background .2s; font-family:var(--sans); color:var(--text);
+}
+.tlh-filter-btn:hover{background:#dccbc0;}
+.tlh-filter-btn.active{background:#dccbc0;}
+.tlh-filter-btn svg{width:12px; height:12px; transition:transform .2s;}
+.tlh-filter-btn.active svg{transform:rotate(180deg);}
+.tlh-filter-panel{
+  display:none; position:absolute; z-index:50; margin-top:8px;
+  background:#fff; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,.1);
+  padding:16px; min-width:180px; left:0;
+}
+.tlh-filter-panel.open{display:flex; flex-direction:column; gap:10px;}
+.tlh-filter-panel label{
+  display:flex; align-items:center; gap:8px;
+  font-size:14px; cursor:pointer; white-space:nowrap;
+}
+.tlh-filter-panel input[type="checkbox"]{
+  width:16px; height:16px; accent-color:var(--accent); margin:0;
+}
+.tlh-sort-select{
+  border:1px solid var(--line); border-radius:6px;
+  padding:8px 14px; font-size:14px; font-family:var(--sans);
+  background:var(--white); color:var(--text); cursor:pointer;
+}

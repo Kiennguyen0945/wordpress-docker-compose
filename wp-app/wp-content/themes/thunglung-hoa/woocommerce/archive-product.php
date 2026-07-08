@@ -29,8 +29,7 @@ if (woocommerce_product_loop()) {
 
     <div class="container">
       <div class="shop-toolbar">
-        <?php woocommerce_result_count(); ?>
-        <?php woocommerce_catalog_ordering(); ?>
+        <?php get_template_part('template-parts/product/filters'); ?>
       </div>
 
       <?php
