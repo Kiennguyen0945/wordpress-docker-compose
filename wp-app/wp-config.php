@@ -124,6 +124,16 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strpos($_SERVER['HTTP_X_FORWARD
 }
 // (we include this by default because reverse proxying is extremely common in container environments)
 
+// Keep local Docker URLs on the host currently opened in the browser.
+if ( ! defined( 'WP_HOME' ) && ! empty( $_SERVER['HTTP_HOST'] ) ) {
+	$local_scheme = ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
+	define( 'WP_HOME', $local_scheme . $_SERVER['HTTP_HOST'] );
+}
+
+if ( ! defined( 'WP_SITEURL' ) && defined( 'WP_HOME' ) ) {
+	define( 'WP_SITEURL', WP_HOME );
+}
+
 if ($configExtra = getenv_docker('WORDPRESS_CONFIG_EXTRA', '')) {
 	eval($configExtra);
 }

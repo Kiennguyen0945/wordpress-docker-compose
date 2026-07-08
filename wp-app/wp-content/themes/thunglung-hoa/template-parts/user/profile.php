@@ -5,64 +5,227 @@
  * @package ThungLungHoa
  */
 $user = wp_get_current_user();
+$billing_phone = get_user_meta($user->ID, 'billing_phone', true);
+$dob = get_user_meta($user->ID, 'date_of_birth', true);
+$gender = get_user_meta($user->ID, 'gender', true);
+$recipient_first = get_user_meta($user->ID, 'billing_first_name', true);
+$recipient_last = get_user_meta($user->ID, 'billing_last_name', true);
+$address_1 = get_user_meta($user->ID, 'billing_address_1', true);
+$address_2 = get_user_meta($user->ID, 'billing_address_2', true);
+$city = get_user_meta($user->ID, 'billing_city', true);
+$state = get_user_meta($user->ID, 'billing_state', true);
+$postcode = get_user_meta($user->ID, 'billing_postcode', true);
+$orders = wc_get_orders(['customer_id' => $user->ID, 'limit' => 5, 'orderby' => 'date', 'order' => 'DESC']);
+$order_count = wc_get_customer_order_count($user->ID);
+$points = intval(get_user_meta($user->ID, 'loyalty_points', true));
 ?>
 <div class="user-profile-wrapper">
-  <h2>Hồ sơ cá nhân</h2>
+  <div class="profile-layout">
+    
 
-  <div class="profile-header-card">
-    <div class="profile-avatar">
-      <?php echo get_avatar($user->ID, 96, '', '', ['class' => 'avatar-img']); ?>
-    </div>
-    <div class="profile-name">
-      <h3><?php echo esc_html($user->display_name); ?></h3>
-      <span class="profile-email"><?php echo esc_html($user->user_email); ?></span>
-    </div>
-  </div>
-
-  <form class="user-form" id="tlh-profile-form" method="post">
-    <div class="form-row">
-      <div class="form-group">
-        <label for="profile-firstname">Họ</label>
-        <input type="text" id="profile-firstname" name="firstname" value="<?php echo esc_attr($user->first_name); ?>">
+    <main class="profile-content">
+      <div class="profile-header-card">
+        <div>
+          <div class="profile-avatar">
+            <?php echo get_avatar($user->ID, 96, '', '', ['class' => 'avatar-img']); ?>
+          </div>
+          <div class="profile-name">
+            <h2><?php echo esc_html($user->display_name ?: $user->user_email); ?></h2>
+            <p class="profile-email"><?php echo esc_html($user->user_email); ?></p>
+          </div>
+        </div>
+        <div class="profile-summary-list">
+          <div class="profile-stat">
+            <strong><?php echo esc_html($order_count); ?></strong>
+            <span>Đơn hàng</span>
+          </div>
+          <div class="profile-stat">
+            <strong><?php echo esc_html($points); ?></strong>
+            <span>Điểm thưởng</span>
+          </div>
+          <div class="profile-stat">
+            <strong>5+</strong>
+            <span>Voucher</span>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="profile-lastname">Tên</label>
-        <input type="text" id="profile-lastname" name="lastname" value="<?php echo esc_attr($user->last_name); ?>">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="profile-phone">Số điện thoại</label>
-      <input type="tel" id="profile-phone" name="phone" value="<?php echo esc_attr(get_user_meta($user->ID, 'billing_phone', true)); ?>">
-    </div>
-    <div class="form-group">
-      <label for="profile-address">Địa chỉ giao hàng</label>
-      <textarea id="profile-address" name="address" rows="2"><?php echo esc_textarea(get_user_meta($user->ID, 'billing_address_1', true)); ?></textarea>
-    </div>
-    <button type="submit" class="btn btn-accent">Cập nhật hồ sơ</button>
-  </form>
 
-  <div class="profile-section">
-    <h3>Đơn hàng của tôi</h3>
-    <?php
-    $orders = wc_get_orders(['customer_id' => $user->ID, 'limit' => 5]);
-    if (empty($orders)) {
-        echo '<p style="color:#8a7f75;">Bạn chưa có đơn hàng nào.</p>';
-    } else {
-        echo '<div class="order-list">';
-        foreach ($orders as $order) {
-            echo '<div class="order-item">';
-            echo '<span class="order-id">#' . esc_html($order->get_order_number()) . '</span>';
-            echo '<span class="order-date">' . esc_html(wc_format_datetime($order->get_date_created())) . '</span>';
-            echo '<span class="order-status">' . esc_html(wc_get_order_status_name($order->get_status())) . '</span>';
-            echo '<span class="order-total">' . wp_kses_post($order->get_formatted_order_total()) . '</span>';
-            echo '</div>';
-        }
-        echo '</div>';
-    }
-    ?>
-  </div>
+      <section id="profile-info" class="profile-section">
+        <h2>Thông tin cá nhân</h2>
+        <div class="profile-grid">
+          <div class="profile-card">
+            <strong>Họ</strong>
+            <span><?php echo esc_html($user->first_name ?: '-'); ?></span>
+          </div>
+          <div class="profile-card">
+            <strong>Tên</strong>
+            <span><?php echo esc_html($user->last_name ?: '-'); ?></span>
+          </div>
+          <div class="profile-card">
+            <strong>Email</strong>
+            <span><?php echo esc_html($user->user_email); ?></span>
+          </div>
+          <div class="profile-card">
+            <strong>Số điện thoại</strong>
+            <span><?php echo esc_html($billing_phone ?: '-'); ?></span>
+          </div>
+          <div class="profile-card">
+            <strong>Ngày sinh</strong>
+            <span><?php echo esc_html($dob ?: '-'); ?></span>
+          </div>
+          <div class="profile-card">
+            <strong>Giới tính</strong>
+            <span><?php echo esc_html($gender ?: '-'); ?></span>
+          </div>
+        </div>
+      </section>
 
-  <div class="profile-section" style="text-align:right;">
-    <a href="<?php echo wp_logout_url(home_url()); ?>" class="btn btn-outline-accent">Đăng xuất</a>
+      <section id="shipping-address" class="profile-section">
+        <h2>Địa chỉ giao hàng</h2>
+        <div class="card-panel">
+          <div class="address-line"><strong><?php echo esc_html(trim($recipient_first . ' ' . $recipient_last) ?: $user->display_name); ?></strong></div>
+          <div class="address-line"><?php echo esc_html($billing_phone ?: '-'); ?></div>
+          <div class="address-line"><?php echo esc_html($address_1 ?: '-'); ?></div>
+          <div class="address-line"><?php echo esc_html($address_2 ?: '-'); ?></div>
+          <div class="address-line"><?php echo esc_html($city ?: '-') . ($city && $state ? ', ' : '') . esc_html($state ?: ''); ?></div>
+          <div class="address-line"><?php echo esc_html($postcode ?: '-'); ?></div>
+          <a href="#profile-form" class="btn btn-outline-accent mt-16">Sửa địa chỉ</a>
+        </div>
+      </section>
+
+      <section id="orders" class="profile-section">
+        <h2>Lịch sử đơn hàng</h2>
+        <?php if (empty($orders)) : ?>
+          <p>Bạn chưa có đơn hàng nào.</p>
+        <?php else : ?>
+          <div class="order-list">
+            <?php foreach ($orders as $order) : ?>
+              <div class="order-item">
+                <div>
+                  <strong>#<?php echo esc_html($order->get_order_number()); ?></strong>
+                  <div><?php echo esc_html(wc_format_datetime($order->get_date_created())); ?></div>
+                </div>
+                <div><?php echo wp_kses_post($order->get_formatted_order_total()); ?></div>
+                <div><?php echo esc_html(wc_get_order_status_name($order->get_status())); ?></div>
+                <div><a href="<?php echo esc_url($order->get_view_order_url()); ?>">Xem</a></div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+      </section>
+
+      <section id="wishlist" class="profile-section">
+        <h2>Yêu thích</h2>
+        <p>Danh sách yêu thích sẽ được hiển thị tại đây khi bạn lưu sản phẩm.</p>
+      </section>
+
+      <section id="vouchers" class="profile-section">
+        <h2>Mã giảm giá</h2>
+        <div class="card-panel voucher-grid">
+          <div class="voucher-item">Giảm 10%</div>
+          <div class="voucher-item">Miễn phí vận chuyển</div>
+        </div>
+      </section>
+
+      <section id="password" class="profile-section">
+        <h2>Đổi mật khẩu</h2>
+        <form class="user-form" id="tlh-password-form" method="post">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="current-password">Mật khẩu hiện tại</label>
+              <input type="password" id="current-password" name="current_password" required>
+            </div>
+            <div class="form-group">
+              <label for="new-password">Mật khẩu mới</label>
+              <input type="password" id="new-password" name="new_password" required>
+            </div>
+            <div class="form-group full">
+              <label for="confirm-password">Nhập lại mật khẩu</label>
+              <input type="password" id="confirm-password" name="confirm_password" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-accent">Đổi mật khẩu</button>
+        </form>
+      </section>
+
+      <section id="profile-form" class="profile-section">
+        <h2>Cập nhật hồ sơ</h2>
+        <form class="user-form" id="tlh-profile-form" method="post">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profile-firstname">Họ</label>
+              <input type="text" id="profile-firstname" name="firstname" value="<?php echo esc_attr($user->first_name); ?>" required>
+            </div>
+            <div class="form-group">
+              <label for="profile-lastname">Tên</label>
+              <input type="text" id="profile-lastname" name="lastname" value="<?php echo esc_attr($user->last_name); ?>" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profile-phone">Số điện thoại</label>
+              <input type="tel" id="profile-phone" name="phone" value="<?php echo esc_attr($billing_phone); ?>">
+            </div>
+            <div class="form-group">
+              <label for="profile-dob">Ngày sinh</label>
+              <input type="date" id="profile-dob" name="dob" value="<?php echo esc_attr($dob); ?>">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full">
+              <label for="profile-gender">Giới tính</label>
+              <select id="profile-gender" name="gender">
+                <option value="" <?php selected($gender, ''); ?>>Chưa chọn</option>
+                <option value="nam" <?php selected($gender, 'nam'); ?>>Nam</option>
+                <option value="nu" <?php selected($gender, 'nu'); ?>>Nữ</option>
+                <option value="khac" <?php selected($gender, 'khac'); ?>>Khác</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="profile-subsection">
+            <h3>Địa chỉ giao hàng</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="recipient-first">Tên người nhận</label>
+                <input type="text" id="recipient-first" name="recipient_first" value="<?php echo esc_attr($recipient_first); ?>">
+              </div>
+              <div class="form-group">
+                <label for="recipient-last">Tên người nhận (phụ)</label>
+                <input type="text" id="recipient-last" name="recipient_last" value="<?php echo esc_attr($recipient_last); ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="address-1">Địa chỉ chi tiết</label>
+                <input type="text" id="address-1" name="address_1" value="<?php echo esc_attr($address_1); ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address-2">Phường/Xã</label>
+                <input type="text" id="address-2" name="address_2" value="<?php echo esc_attr($address_2); ?>">
+              </div>
+              <div class="form-group">
+                <label for="city">Tỉnh/Thành</label>
+                <input type="text" id="city" name="city" value="<?php echo esc_attr($city); ?>">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="state">Quận/Huyện</label>
+                <input type="text" id="state" name="state" value="<?php echo esc_attr($state); ?>">
+              </div>
+              <div class="form-group">
+                <label for="postcode">Mã bưu điện</label>
+                <input type="text" id="postcode" name="postcode" value="<?php echo esc_attr($postcode); ?>">
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-accent">Cập nhật hồ sơ</button>
+        </form>
+      </section>
+    </main>
   </div>
 </div>

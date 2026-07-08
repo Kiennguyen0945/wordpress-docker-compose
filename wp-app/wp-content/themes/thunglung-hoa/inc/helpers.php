@@ -50,6 +50,13 @@ function tlh_cart_icon() {
 }
 
 /**
+ * User account icon SVG.
+ */
+function tlh_user_icon() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>';
+}
+
+/**
  * Wave divider SVG.
  */
 function tlh_wave_divider() {
