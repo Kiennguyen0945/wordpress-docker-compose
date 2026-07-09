@@ -87,3 +87,40 @@ function tlh_breadcrumb_defaults() {
  */
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 add_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 25);
+
+/**
+ * Fix: Replace fancy Unicode quotes with ASCII quotes in add-to-cart message
+ * to prevent UTF-8 multi-byte character truncation causing text to be cut off.
+ */
+add_filter('wc_add_to_cart_message_html', 'tlh_fix_add_to_cart_quotes', 10, 3);
+function tlh_fix_add_to_cart_quotes($message, $products, $show_qty) {
+    $message = str_replace("\xe2\x80\x9c", '"', $message);
+    $message = str_replace("\xe2\x80\x9d", '"', $message);
+    $message = str_replace('&ldquo;', '"', $message);
+    $message = str_replace('&rdquo;', '"', $message);
+    return $message;
+}
+
+/**
+ * Intercept Cart Block rendering when cart is empty.
+ * Hiển thị giao diện giỏ hàng trống custom thay vì màn hình trắng.
+ * Không ảnh hưởng đến cart có sản phẩm.
+ * Không cần sửa database.
+ */
+add_filter('render_block', 'tlh_cart_block_empty_fallback', 10, 2);
+function tlh_cart_block_empty_fallback($block_content, $block) {
+    // Chỉ xử lý Cart Block
+    if ($block['blockName'] !== 'woocommerce/cart') {
+        return $block_content;
+    }
+
+    // Chỉ xử lý khi giỏ hàng trống
+    if (!WC()->cart->is_empty()) {
+        return $block_content;
+    }
+
+    // Render custom empty cart template
+    ob_start();
+    wc_get_template('cart/cart-empty.php');
+    return ob_get_clean();
+}

@@ -11,7 +11,7 @@ get_header('shop');
 <section class="shop-header">
   <div class="container">
     <?php if (apply_filters('woocommerce_show_page_title', true)) : ?>
-      <span class="eyebrow">Cửa hàng</span>
+      <span class="eyebrow">Sản phẩm</span>
       <h1 style="margin:14px 0 12px;"><?php woocommerce_page_title(); ?></h1>
     <?php endif; ?>
     <p class="lede">Mỗi bó hoa đều được cắm trong ngày. Chọn theo câu chuyện bạn muốn kể, hoặc theo loài hoa bạn yêu thích nhất.</p>

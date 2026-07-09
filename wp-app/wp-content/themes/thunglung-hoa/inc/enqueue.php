@@ -8,7 +8,7 @@
 
 add_action('wp_enqueue_scripts', 'tlh_enqueue');
 function tlh_enqueue() {
-    $theme_version = '1.0.0';
+    $theme_version = '1.0.1';
     $css_dir = get_template_directory_uri() . '/assets/css/';
     $js_dir  = get_template_directory_uri() . '/assets/js/';
 
@@ -33,6 +33,9 @@ function tlh_enqueue() {
     wp_enqueue_script('tlh-main',       $js_dir . 'main.js',       [], $theme_version, true);
     wp_enqueue_script('tlh-filters',    $js_dir . 'filters.js',    [], $theme_version, true);
     wp_enqueue_script('tlh-checkout',   $js_dir . 'checkout.js',   [], $theme_version, true);
+    if (is_cart()) {
+        wp_enqueue_script('tlh-cart', $js_dir . 'cart.js', ['wc-blocks'], $theme_version, true);
+    }
 
     // Localize for AJAX
     $ajax_data = [

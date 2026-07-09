@@ -40,6 +40,23 @@ do_action('woocommerce_before_add_to_cart_form');
     ?>
   </div>
 
+  <script>
+  jQuery(function($){
+    var $form = $('.variations_form');
+    var $pdPrice = $('.pd-price');
+    var originalPrice = $pdPrice.html();
+    $pdPrice.attr('data-original-price', originalPrice);
+    $form.on('found_variation', function(e, variation){
+      if(variation.price_html){
+        $pdPrice.html(variation.price_html);
+      }
+    });
+    $form.on('reset_data', function(){
+      $pdPrice.html($pdPrice.attr('data-original-price'));
+    });
+  });
+  </script>
+
   <?php do_action('woocommerce_after_add_to_cart_button'); ?>
 </form>
 

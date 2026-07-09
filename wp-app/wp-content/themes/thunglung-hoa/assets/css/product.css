@@ -10,9 +10,9 @@
 .pd-info .stars-row{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
 .pd-info .stars-row span{font-size:.85rem; color:#8a7f75;}
 .pd-info h1{font-size:clamp(1.8rem,3vw,2.3rem); margin-bottom:14px;}
-.pd-price{display:flex; align-items:center; gap:12px; margin-bottom:22px;}
-.pd-price .now{font-family:var(--serif); font-size:1.9rem; font-weight:600; color:var(--accent);}
-.pd-price .old{color:#a89b90; text-decoration:line-through; font-size:1.1rem;}
+.pd-price{font-family:var(--serif); font-size:1.9rem; font-weight:700; color:var(--accent); margin-bottom:22px;}
+.pd-price .amount{font-weight:700;}
+.pd-price .old{color:#a89b90; text-decoration:line-through; font-size:1.1rem; font-weight:500; margin-left:8px;}
 .pd-desc{color:#5b5049; margin-bottom:28px; max-width:56ch;}
 .option-block{margin-bottom:26px;}
 .option-label{display:flex; justify-content:space-between; font-weight:600; font-size:.92rem; margin-bottom:12px;}
@@ -42,12 +42,20 @@
 /* Add-to-cart */
 .add-to-cart-form{margin-bottom:24px;}
 .add-to-cart-form .qty-row{display:flex; gap:14px; align-items:center;}
-.qty-input{width:48px; border:none; text-align:center; font-weight:600; font-size:1rem; background:transparent;}
+.qty-input,.qty-stepper .qty{width:48px; border:none; text-align:center; font-weight:600; font-size:1rem; background:transparent;}
+.qty-stepper .quantity{margin:0;}
+/* Hide native number input spinners */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button,
+.qty-stepper .qty::-webkit-outer-spin-button,
+.qty-stepper .qty::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.qty-input[type="number"],
+.qty-stepper .qty[type="number"]{-moz-appearance:textfield;appearance:textfield;}
 .variations{margin-bottom:20px;}
 .var-row{display:flex; flex-direction:column; gap:6px; margin-bottom:12px;}
 .var-row label{font-weight:600; font-size:.9rem;}
 .var-row select{padding:10px 14px; border:1px solid var(--line); background:var(--white); font-size:.9rem;}
-.single_variation_wrap .woocommerce-variation-price .price{font-family:var(--serif); font-size:1.5rem; font-weight:600; color:var(--accent);}
+.single_variation_wrap .woocommerce-variation-price{display:none !important;}
 .single_variation_wrap .woocommerce-variation-availability{margin-bottom:12px;}
 .woocommerce-variation-add-to-cart{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
 
