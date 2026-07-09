@@ -33,6 +33,9 @@ function tlh_enqueue() {
     wp_enqueue_script('tlh-main',       $js_dir . 'main.js',       [], $theme_version, true);
     wp_enqueue_script('tlh-filters',    $js_dir . 'filters.js',    [], $theme_version, true);
     wp_enqueue_script('tlh-checkout',   $js_dir . 'checkout.js',   [], $theme_version, true);
+    if (is_cart()) {
+        wp_enqueue_script('tlh-cart', $js_dir . 'cart.js', ['wc-blocks'], $theme_version, true);
+    }
 
     // Localize for AJAX
     wp_localize_script('tlh-filters', 'tlh_ajax', [

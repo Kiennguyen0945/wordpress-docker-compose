@@ -100,3 +100,50 @@ function tlh_fix_add_to_cart_quotes($message, $products, $show_qty) {
     $message = str_replace('&rdquo;', '"', $message);
     return $message;
 }
+
+/**
+ * Add "Miễn phí vận chuyển" fee line (amount = 0) to cart.
+ * Cart Block sẽ hiển thị dòng này trong Order Summary.
+ * JS (cart.js) sẽ đổi "0₫" thành "MIỄN PHÍ".
+ */
+add_action('woocommerce_cart_calculate_fees', 'tlh_add_free_shipping_fee');
+function tlh_add_free_shipping_fee($cart) {
+    if (is_admin() && !wp_doing_ajax()) return;
+    if ($cart->get_cart_contents_count() === 0) return;
+
+    // Chỉ thêm nếu chưa có dòng nào tên "Miễn phí vận chuyển"
+    $exists = false;
+    foreach ($cart->get_fees() as $fee) {
+        if ($fee->name === 'Miễn phí vận chuyển') {
+            $exists = true;
+            break;
+        }
+    }
+    if (!$exists) {
+        $cart->add_fee('Miễn phí vận chuyển', 0, false, '');
+    }
+}
+
+/**
+ * Intercept Cart Block rendering when cart is empty.
+ * Hiển thị giao diện giỏ hàng trống custom thay vì màn hình trắng.
+ * Không ảnh hưởng đến cart có sản phẩm.
+ * Không cần sửa database.
+ */
+add_filter('render_block', 'tlh_cart_block_empty_fallback', 10, 2);
+function tlh_cart_block_empty_fallback($block_content, $block) {
+    // Chỉ xử lý Cart Block
+    if ($block['blockName'] !== 'woocommerce/cart') {
+        return $block_content;
+    }
+
+    // Chỉ xử lý khi giỏ hàng trống
+    if (!WC()->cart->is_empty()) {
+        return $block_content;
+    }
+
+    // Render custom empty cart template
+    ob_start();
+    wc_get_template('cart/cart-empty.php');
+    return ob_get_clean();
+}
