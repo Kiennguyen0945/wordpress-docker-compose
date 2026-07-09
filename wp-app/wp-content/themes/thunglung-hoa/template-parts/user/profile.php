@@ -21,9 +21,8 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
 ?>
 <div class="user-profile-wrapper">
   <div class="profile-layout">
-    
-
-    <main class="profile-content">
+    <!-- ========== CỘT TRÁI ========== -->
+    <div class="profile-col profile-col--left">
       <div class="profile-header-card">
         <div>
           <div class="profile-avatar">
@@ -55,11 +54,11 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
         <div class="profile-grid">
           <div class="profile-card">
             <strong>Họ</strong>
-            <span><?php echo esc_html($user->first_name ?: '-'); ?></span>
+            <span><?php echo esc_html($user->first_name ?: 'Chưa cập nhật'); ?></span>
           </div>
           <div class="profile-card">
             <strong>Tên</strong>
-            <span><?php echo esc_html($user->last_name ?: '-'); ?></span>
+            <span><?php echo esc_html($user->last_name ?: 'Chưa cập nhật'); ?></span>
           </div>
           <div class="profile-card">
             <strong>Email</strong>
@@ -67,15 +66,15 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
           </div>
           <div class="profile-card">
             <strong>Số điện thoại</strong>
-            <span><?php echo esc_html($billing_phone ?: '-'); ?></span>
+            <span><?php echo esc_html($billing_phone ?: 'Chưa cập nhật'); ?></span>
           </div>
           <div class="profile-card">
             <strong>Ngày sinh</strong>
-            <span><?php echo esc_html($dob ?: '-'); ?></span>
+            <span><?php echo esc_html($dob ?: 'Chưa cập nhật'); ?></span>
           </div>
           <div class="profile-card">
             <strong>Giới tính</strong>
-            <span><?php echo esc_html($gender ?: '-'); ?></span>
+            <span><?php echo esc_html($gender ?: 'Chưa cập nhật'); ?></span>
           </div>
         </div>
       </section>
@@ -84,46 +83,12 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
         <h2>Địa chỉ giao hàng</h2>
         <div class="card-panel">
           <div class="address-line"><strong><?php echo esc_html(trim($recipient_first . ' ' . $recipient_last) ?: $user->display_name); ?></strong></div>
-          <div class="address-line"><?php echo esc_html($billing_phone ?: '-'); ?></div>
-          <div class="address-line"><?php echo esc_html($address_1 ?: '-'); ?></div>
-          <div class="address-line"><?php echo esc_html($address_2 ?: '-'); ?></div>
-          <div class="address-line"><?php echo esc_html($city ?: '-') . ($city && $state ? ', ' : '') . esc_html($state ?: ''); ?></div>
-          <div class="address-line"><?php echo esc_html($postcode ?: '-'); ?></div>
+          <div class="address-line"><?php echo esc_html($billing_phone ?: 'Chưa cập nhật'); ?></div>
+          <div class="address-line"><?php echo esc_html($address_1 ?: 'Chưa cập nhật'); ?></div>
+          <div class="address-line"><?php echo esc_html($address_2 ?: 'Chưa cập nhật'); ?></div>
+          <div class="address-line"><?php echo esc_html($city ?: 'Chưa cập nhật') . ($city && $state ? ', ' : '') . esc_html($state ?: ''); ?></div>
+          <div class="address-line"><?php echo esc_html($postcode ?: 'Chưa cập nhật'); ?></div>
           <a href="#profile-form" class="btn btn-outline-accent mt-16">Sửa địa chỉ</a>
-        </div>
-      </section>
-
-      <section id="orders" class="profile-section">
-        <h2>Lịch sử đơn hàng</h2>
-        <?php if (empty($orders)) : ?>
-          <p>Bạn chưa có đơn hàng nào.</p>
-        <?php else : ?>
-          <div class="order-list">
-            <?php foreach ($orders as $order) : ?>
-              <div class="order-item">
-                <div>
-                  <strong>#<?php echo esc_html($order->get_order_number()); ?></strong>
-                  <div><?php echo esc_html(wc_format_datetime($order->get_date_created())); ?></div>
-                </div>
-                <div><?php echo wp_kses_post($order->get_formatted_order_total()); ?></div>
-                <div><?php echo esc_html(wc_get_order_status_name($order->get_status())); ?></div>
-                <div><a href="<?php echo esc_url($order->get_view_order_url()); ?>">Xem</a></div>
-              </div>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-      </section>
-
-      <section id="wishlist" class="profile-section">
-        <h2>Yêu thích</h2>
-        <p>Danh sách yêu thích sẽ được hiển thị tại đây khi bạn lưu sản phẩm.</p>
-      </section>
-
-      <section id="vouchers" class="profile-section">
-        <h2>Mã giảm giá</h2>
-        <div class="card-panel voucher-grid">
-          <div class="voucher-item">Giảm 10%</div>
-          <div class="voucher-item">Miễn phí vận chuyển</div>
         </div>
       </section>
 
@@ -164,7 +129,7 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
           <div class="form-row">
             <div class="form-group">
               <label for="profile-phone">Số điện thoại</label>
-              <input type="tel" id="profile-phone" name="phone" value="<?php echo esc_attr($billing_phone); ?>">
+              <input type="tel" id="profile-phone" name="phone" value="<?php echo esc_attr($billing_phone); ?>" maxlength="11">
             </div>
             <div class="form-group">
               <label for="profile-dob">Ngày sinh</label>
@@ -196,7 +161,7 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group full">
+              <div class="form-group form-group--span2">
                 <label for="address-1">Địa chỉ chi tiết</label>
                 <input type="text" id="address-1" name="address_1" value="<?php echo esc_attr($address_1); ?>">
               </div>
@@ -226,6 +191,66 @@ $points = intval(get_user_meta($user->ID, 'loyalty_points', true));
           <button type="submit" class="btn btn-accent">Cập nhật hồ sơ</button>
         </form>
       </section>
-    </main>
+    </div>
+
+    <!-- ========== CỘT PHẢI ========== -->
+    <div class="profile-col profile-col--right">
+      <section id="orders" class="profile-section">
+        <h2>Lịch sử đơn hàng</h2>
+        <?php if (empty($orders)) : ?>
+          <p>Bạn chưa có đơn hàng nào.</p>
+        <?php else : ?>
+          <div class="order-list">
+            <?php foreach ($orders as $order) : ?>
+              <div class="order-item">
+                <div>
+                  <strong>#<?php echo esc_html($order->get_order_number()); ?></strong>
+                  <div><?php echo esc_html(wc_format_datetime($order->get_date_created())); ?></div>
+                </div>
+                <div><?php echo wp_kses_post($order->get_formatted_order_total()); ?></div>
+                <div><?php echo esc_html(wc_get_order_status_name($order->get_status())); ?></div>
+                <div><a href="<?php echo esc_url($order->get_view_order_url()); ?>">Xem</a></div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+      </section>
+
+      <section id="wishlist" class="profile-section">
+        <h2>Yêu thích</h2>
+        <p>Danh sách yêu thích sẽ được hiển thị tại đây khi bạn lưu sản phẩm.</p>
+      </section>
+
+      <section id="vouchers" class="profile-section">
+        <h2>Mã giảm giá</h2>
+        <div class="card-panel voucher-grid">
+          <div class="voucher-item">Giảm 10%</div>
+          <div class="voucher-item">Miễn phí vận chuyển</div>
+        </div>
+      </section>
+
+      <section id="profile-newsletter" class="profile-section">
+        <h2>Nhận ưu đãi sớm nhất</h2>
+        <div class="card-panel">
+          <p style="font-size:.88rem; color:#5b5049; margin-bottom:14px;">Đăng ký để nhận ưu đãi dịp lễ và mẫu hoa mới mỗi tuần.</p>
+          <div class="newsletter-row">
+            <input type="email" placeholder="Email của bạn">
+            <button>Gửi</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="profile-support" class="profile-section">
+        <h2>Liên hệ hỗ trợ</h2>
+        <div class="card-panel support-card">
+          <p>Cần trợ giúp? Liên hệ với chúng tôi qua:</p>
+          <div class="support-links">
+            <span>📞 Hotline: 0909 xxx xxx</span>
+            <span>✉️ Email: support@thunglunghoa.vn</span>
+            <span>💬 Zalo: 0909 xxx xxx</span>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </div>

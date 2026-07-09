@@ -8,7 +8,7 @@
 
 add_action('wp_enqueue_scripts', 'tlh_enqueue');
 function tlh_enqueue() {
-    $theme_version = '1.0.1';
+    $theme_version = '1.0.3';
     $css_dir = get_template_directory_uri() . '/assets/css/';
     $js_dir  = get_template_directory_uri() . '/assets/js/';
 

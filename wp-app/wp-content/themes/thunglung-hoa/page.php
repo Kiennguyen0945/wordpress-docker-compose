@@ -62,6 +62,17 @@ if ($slug === 'dang-nhap') {
       ?>
     </div>
     <?php
+} elseif ($slug === 'ho-so') {
+    error_log('PAGE DEBUG: rendering profile page');
+    ?>
+    <div class="profile-page-wrapper">
+      <?php
+      while (have_posts()) : the_post();
+          the_content();
+      endwhile;
+      ?>
+    </div>
+    <?php
 } else {
     error_log('PAGE DEBUG: rendering normal page content');
     ?>
